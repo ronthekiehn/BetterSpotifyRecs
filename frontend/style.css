@@ -1,0 +1,233 @@
+body {
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #ffffff;
+}
+.player-container {
+  background-color: #e7e7e7;
+  padding: 25px 25px 25px 25px;
+  border-radius: 40px;
+  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  align-items: center;
+  display:flex;
+  max-width: 250px;
+  transition: 0.5s ease;
+  transform: scale(0.7);
+}
+
+.player-container.ready {
+  transform: scale(1);
+  padding: 25px 23px 60px 23px;
+}
+
+.song-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fade-in-album {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeInControls {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+
+.fade-in-controls {
+  animation: fadeInControls 0.5s ease-out forwards;
+}
+
+.album-cover {
+  margin-bottom: 5px;
+  width: 100%; 
+}
+
+.album-cover img {
+  max-width: 95%;
+  border-radius: 10%;
+  border: black 3px solid;
+}
+
+.song-details-content {
+  display: flex;
+  width: 90%; 
+  text-align: left; 
+  justify-content: space-between; 
+  margin-bottom: 30px;
+}
+
+
+.song-info{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 0.8rem;
+}
+
+#current-song{
+  font-weight: bold;
+}
+
+.like-button {
+  width: 18%;
+  border-radius: 30%;
+  border: none;
+  cursor: pointer;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0);
+  background-size: 80%;
+  color: white;
+  background-image: url(media/unliked.png);
+  transition: 0.2s ease;
+}
+
+.like-button:hover {
+    transform: scale(1.2);
+}
+
+.like-button:active{
+  transform: scale(0.8);
+
+}
+.controls {
+  margin: auto;
+  background-color: white;
+  width: 70%;
+  padding: 7px;
+  display: flex;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1) inset;
+  border-radius: 40px;
+  justify-content: space-between;
+  align-items: center;
+  transform: scale(1.3);
+}
+
+.controls button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.2s ease;
+}
+
+.controls button:hover {
+    transform: scale(1.2);
+}
+
+.controls button:active {
+  transform: scale(0.8);
+}
+
+.next-button {
+  background-size: 80%;
+  background-color: rgba(128, 128, 128, 0);
+  color: white;
+  background-image: url(media/skip.png);
+  margin-right: 10px;
+}
+
+.previous-button {
+  background-size: 80%;
+  background-color: rgba(128, 128, 128, 0);
+  color: white;
+  background-image: url(media/prev.png);
+  margin-left: 10px;
+  
+}
+
+.play-button {
+  background-color: rgba(0, 0, 0, 0);
+  background-size: 90%;
+  color: white;
+  background-image: url(media/pause.png);
+  
+}
+
+.loading {
+  font-size: 1.5em;
+  color: #333;
+}
+.get-started-button {
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.settings-menu {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+#settings-button {
+  background-color: #e7e7e7;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+#sign-out {
+  background-color: #fd6b6b;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content button {
+  color: black;
+  padding: 20px 20px;
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.dropdown-content button:hover {
+  background-color: #ddd;
+}
