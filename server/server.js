@@ -29,7 +29,9 @@ const generateRandomString = (length) => {
 
 var stateKey = 'spotify_auth_state';
 
-app.use(cors())
+app.use(cors({
+  origin: 'https://ronki.github.io/BetterSpotifyRecs'
+}))
    .use(cookieParser());
 
 

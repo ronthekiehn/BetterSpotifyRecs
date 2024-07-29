@@ -1,3 +1,5 @@
+const apiUrl = 'https://api.ronthekiehn.github.io';
+
 const params = new URLSearchParams(window.location.hash.substring(1));
 let token = params.get('access_token');
 let refreshToken = params.get('refresh_token');
@@ -167,14 +169,14 @@ async function getRecs() {
 
 
 async function checkFileExists(purpose) {
-    const url = `http://localhost:3000/file-exists/${purpose}`;
+    const url = `${apiUrl}/file-exists/${purpose}`;
     const response = await fetch(url);
     const result = await response.json();
     return result.exists;
   }
 
 async function readFileData(purpose) {
-    const url = `http://localhost:3000/read-data/${purpose}`;
+    const url = `${apiUrl}/read-data/${purpose}`;
     const response = await fetch(url);
     if (response.ok) {
       const data = await response.json();
@@ -187,7 +189,7 @@ async function readFileData(purpose) {
   }
 
 async function sendDataToServer(data, purpose) {
-    const url = `http://localhost:3000/export/${purpose}`;
+    const url = `${apiUrl}/export/${purpose}`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
