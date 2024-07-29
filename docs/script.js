@@ -1,11 +1,50 @@
 const serverIP = __SERVER_IP__;
+const client_id = __CLIENT_ID__;
+const client_secret = __CLIENT_SECRET__;
+var redirect_uri = `https://better-spotify-recs.vercel.app/callback`; 
 
 const apiUrl = `http://${serverIP}:80`;
-//const apiUrl = `http://localhost:3000`;
 
-const params = new URLSearchParams(window.location.hash.substring(1));
-let token = params.get('access_token');
-let refreshToken = params.get('refresh_token');
+var stateKey = 'spotify_auth_state';
+var token = undefined;
+var refresh_token = undefined;
+
+function generateRandomString(length) {
+    let text = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < length; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+}
+
+function login(show_dialog) {
+    const state = generateRandomString(16);
+    document.cookie(stateKey, state);
+    const scope = 'user-top-read user-library-read user-read-recently-played user-modify-playback-state user-library-modify user-read-playback-state streaming user-read-email user-read-private';
+    const url = new URL('https://accounts.spotify.com/authorize');
+    const params = {
+        response_type: 'code',
+        client_id: client_id,
+        scope: scope,
+        redirect_uri: redirect_uri,
+        state: state,
+        show_dialog: show_dialog
+    };
+
+    for (const key in params) {
+        url.searchParams.append(key, params[key]);
+    }
+
+    window.location.href = url.toString();
+};
+
+
+async function logout() {
+    document.clearCookie('signedIn');
+    window.location.href = '/';
+}
+
 
 async function fetchWebApi(endpoint, method, body) {
     const res = await fetch(`https://api.spotify.com/${endpoint}`, {
@@ -512,44 +551,19 @@ async function initSpotify() {
     return match ? match[2] : null;
 }
   document.addEventListener('DOMContentLoaded', function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-    const state = urlParams.get('state');
-    
-    if (code && state) {
-        // Forward the callback data to your backend
-        fetch(`${apiUrl}/callback?code=${code}&state=${state}`, {
-            method: 'GET',
-            credentials: 'include'
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response from the backend
-            if (data.access_token) {
-                token = data.access_token
-                window.location.href = '/';
-            } else {
-                console.error('Error during authentication', data);
-            }
-        })
-        .catch(error => {
-            console.error('Error during authentication', error);
-        });
-    }else{
-        if (token){
-            initSpotify();
-        } else{
-            const signedIn = getCookie('signedIn');
-            if (signedIn === 'true') {
-                // If signed in, automatically login without showing the dialog
-                window.location.href = `${apiUrl}/login?show_dialog=false`;
-            } else {
-                // If not signed in, show the "Login with Spotify" button
-                document.getElementById('login-button').style.display = 'block';
-                document.getElementById('login-button').onclick = () => {
-                    window.location.href = `${apiUrl}/login?show_dialog=true`;
-                };
-            }
+    token = localStorage.getItem('spotify_access_token');
+    if (token){
+        initSpotify();
+    } else{
+        const signedIn = getCookie('signedIn');
+        if (signedIn === 'true') {
+            login(false);
+        } else {
+            // If not signed in, show the "Login with Spotify" button
+            document.getElementById('login-button').style.display = 'block';
+            document.getElementById('login-button').onclick = () => {
+                login(true);
+            };
         }
     }
     
