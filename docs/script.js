@@ -1,4 +1,5 @@
 const apiUrl = `https://${window.API_URL}:3000`;
+console.log(apiUrl);
 
 const params = new URLSearchParams(window.location.hash.substring(1));
 let token = params.get('access_token');
