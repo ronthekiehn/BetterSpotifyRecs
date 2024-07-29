@@ -1,7 +1,6 @@
 const serverIP = __SERVER_IP__;
 
 const apiUrl = `https://${serverIP}:3000`;
-console.log(apiUrl);
 
 const params = new URLSearchParams(window.location.hash.substring(1));
 let token = params.get('access_token');
@@ -518,12 +517,12 @@ async function initSpotify() {
         const signedIn = getCookie('signedIn');
         if (signedIn === 'true') {
             // If signed in, automatically login without showing the dialog
-            window.location.href = `/login?show_dialog=false`;
+            window.location.href = `${apiUrl}/login?show_dialog=false`;
         } else {
             // If not signed in, show the "Login with Spotify" button
             document.getElementById('login-button').style.display = 'block';
             document.getElementById('login-button').onclick = () => {
-                window.location.href = `/login?show_dialog=true`;
+                window.location.href = `${apiUrl}/login?show_dialog=true`;
             };
         }
     }
