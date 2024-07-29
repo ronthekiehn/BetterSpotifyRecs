@@ -13,7 +13,7 @@ var cookieParser = require('cookie-parser');
 require('dotenv').config();
 var client_id = process.env.CLIENT_ID; 
 var client_secret = process.env.CLIENT_SECRET; 
-var redirect_uri = 'http://localhost:3000/callback'; 
+var redirect_uri = 'https://ronthekiehn.github.io/BetterSpotifyRecs/callback'; 
 
 // Enable CORS for all routes
 app.use(cors());
@@ -29,8 +29,7 @@ const generateRandomString = (length) => {
 
 var stateKey = 'spotify_auth_state';
 
-app.use(express.static(path.join(__dirname, '..', 'frontend')))
-   .use(cors())
+app.use(cors())
    .use(cookieParser());
 
 
