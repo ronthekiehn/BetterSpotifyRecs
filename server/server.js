@@ -14,7 +14,7 @@ require('dotenv').config();
 var client_id = process.env.CLIENT_ID; 
 var client_secret = process.env.CLIENT_SECRET; 
 var serverIP = process.env.SERVER_IP; 
-var redirect_uri = `http://${serverIP}:${port}/callback`; 
+var redirect_uri = `https://better-spotify-recs.vercel.app/callback`; 
 
 // Enable CORS for all routes
 app.use(cors());
@@ -91,23 +91,16 @@ app.get('/callback', function(req, res) {
       res.cookie('signedIn', 'true');
       request.post(authOptions, function(error, response, body) {
         if (!error && response.statusCode === 200) {
-  
-          var access_token = body.access_token,
-              refresh_token = body.refresh_token;
-  
-          // we can also pass the token to the browser to make requests from there
-          res.redirect('/#' +
-            querystring.stringify({
-              access_token: access_token,
-              refresh_token: refresh_token
-            }));
+          const access_token = body.access_token;
+          const refresh_token = body.refresh_token;
+
+          res.json({
+            access_token: access_token,
+            refresh_token: refresh_token
+          });
         } else {
-          res.redirect('/#' +
-            querystring.stringify({
-              error: 'invalid_token'
-            }));
-        }
-      });
+          res.json({ error: 'invalid_token' });
+        }});
     }
   });
 

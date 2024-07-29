@@ -512,19 +512,44 @@ async function initSpotify() {
     return match ? match[2] : null;
 }
   document.addEventListener('DOMContentLoaded', function() {
-    if (token){
-        initSpotify();
-    } else{
-        const signedIn = getCookie('signedIn');
-        if (signedIn === 'true') {
-            // If signed in, automatically login without showing the dialog
-            window.location.href = `${apiUrl}/login?show_dialog=false`;
-        } else {
-            // If not signed in, show the "Login with Spotify" button
-            document.getElementById('login-button').style.display = 'block';
-            document.getElementById('login-button').onclick = () => {
-                window.location.href = `${apiUrl}/login?show_dialog=true`;
-            };
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    const state = urlParams.get('state');
+    
+    if (code && state) {
+        // Forward the callback data to your backend
+        fetch(`${apiUrl}/callback?code=${code}&state=${state}`, {
+            method: 'GET',
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response from the backend
+            if (data.access_token) {
+                token = data.access_token
+                window.location.href = '/';
+            } else {
+                console.error('Error during authentication', data);
+            }
+        })
+        .catch(error => {
+            console.error('Error during authentication', error);
+        });
+    }else{
+        if (token){
+            initSpotify();
+        } else{
+            const signedIn = getCookie('signedIn');
+            if (signedIn === 'true') {
+                // If signed in, automatically login without showing the dialog
+                window.location.href = `${apiUrl}/login?show_dialog=false`;
+            } else {
+                // If not signed in, show the "Login with Spotify" button
+                document.getElementById('login-button').style.display = 'block';
+                document.getElementById('login-button').onclick = () => {
+                    window.location.href = `${apiUrl}/login?show_dialog=true`;
+                };
+            }
         }
     }
     
