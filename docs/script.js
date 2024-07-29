@@ -470,7 +470,7 @@ function removeLoginButton() {
   
 function signOut() {
     document.cookie = 'signedIn=false; path=/';
-    window.location.href = '/logout';
+    window.location.href = '/BetterSpotifyRecs/logout';
 }
 
 let songDict = {};
@@ -515,7 +515,7 @@ async function initSpotify() {
         const signedIn = getCookie('signedIn');
         if (signedIn === 'true') {
             // If signed in, automatically login without showing the dialog
-            window.location.href = '/login?show_dialog=false';
+            window.location.href = '/BetterSpotifyRecs/login?show_dialog=false';
         } else {
             // If not signed in, show the "Login with Spotify" button
             document.getElementById('login-button').style.display = 'block';
