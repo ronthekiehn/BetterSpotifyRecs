@@ -522,6 +522,9 @@ async function initSpotify() {
         } else {
             // If not signed in, show the "Login with Spotify" button
             document.getElementById('login-button').style.display = 'block';
+            document.getElementById('login-button').onclick = () => {
+                window.location.href = `/login?show_dialog=true`;
+            };
         }
     }
     
