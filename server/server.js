@@ -22,6 +22,10 @@ app.use(express.static(path.join(__dirname, 'docs')));
 
 app.use(bodyParser.json({ limit: '1mb' })); 
 
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
+
 const generateRandomString = (length) => {
   return crypto
     .randomBytes(60)
