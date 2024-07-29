@@ -14,7 +14,7 @@ require('dotenv').config();
 var client_id = process.env.CLIENT_ID; 
 var client_secret = process.env.CLIENT_SECRET; 
 var serverIP = process.env.SERVER_IP; 
-var redirect_uri = `https://${serverIP}:${port}/callback`; 
+var redirect_uri = `http://${serverIP}:${port}/callback`; 
 
 // Enable CORS for all routes
 app.use(cors());
