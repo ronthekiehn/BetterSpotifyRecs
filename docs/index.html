@@ -7,9 +7,12 @@
     <script src="script.js" type="module" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script>
+        window.API_URL = '<%= process.env.API_URL %>';
+      </script>
 </head>
 <body>
-    <button id="login-button" style="display:none;" onclick="window.location.href='https://api.ronthekiehn.github.io/login?show_dialog=true'">Login with Spotify</button>
+    <button id="login-button" style="display:none;" onclick="window.location.href='/login?show_dialog=true'">Login with Spotify</button>
     <div class="settings-menu" id="settings" style="display: none">
         <button id="settings-button">Settings</button>
         <div id="settings-dropdown" class="dropdown-content" style="display: none">

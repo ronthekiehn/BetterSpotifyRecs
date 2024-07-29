@@ -1,4 +1,4 @@
-const apiUrl = 'https://api.ronthekiehn.github.io';
+const apiUrl = `https://${window.API_URL}:3000`;
 
 const params = new URLSearchParams(window.location.hash.substring(1));
 let token = params.get('access_token');
@@ -470,7 +470,7 @@ function removeLoginButton() {
   
 function signOut() {
     document.cookie = 'signedIn=false; path=/';
-    window.location.href = `${apiUrl}/logout`;
+    window.location.href = `logout`;
 }
 
 let songDict = {};
@@ -515,7 +515,7 @@ async function initSpotify() {
         const signedIn = getCookie('signedIn');
         if (signedIn === 'true') {
             // If signed in, automatically login without showing the dialog
-            window.location.href = `${apiUrl}/login?show_dialog=false`;
+            window.location.href = `/login?show_dialog=false`;
         } else {
             // If not signed in, show the "Login with Spotify" button
             document.getElementById('login-button').style.display = 'block';

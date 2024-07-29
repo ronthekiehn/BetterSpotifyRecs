@@ -13,7 +13,7 @@ var cookieParser = require('cookie-parser');
 require('dotenv').config();
 var client_id = process.env.CLIENT_ID; 
 var client_secret = process.env.CLIENT_SECRET; 
-var redirect_uri = 'https://ronthekiehn.github.io/BetterSpotifyRecs/callback'; 
+var redirect_uri = 'https://better-spotify-recs.vercel.app/callback'; 
 
 // Enable CORS for all routes
 app.use(cors());
@@ -30,7 +30,7 @@ const generateRandomString = (length) => {
 var stateKey = 'spotify_auth_state';
 
 app.use(cors({
-  origin: 'https://ronki.github.io/BetterSpotifyRecs'
+  origin: 'https://better-spotify-recs.vercel.app'
 }))
    .use(cookieParser());
 
