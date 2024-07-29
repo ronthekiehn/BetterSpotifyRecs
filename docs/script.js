@@ -1,6 +1,6 @@
 const serverIP = __SERVER_IP__;
 
-const apiUrl = `https://${serverIP}:3000`;
+const apiUrl = `https://${serverIP}:80`;
 //const apiUrl = `http://localhost:3000`;
 
 const params = new URLSearchParams(window.location.hash.substring(1));

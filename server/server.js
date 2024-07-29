@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const app = express();
-const port = 3000;
+const port = 80;
 var request = require('request');
 var crypto = require('crypto');
 var querystring = require('querystring');
@@ -166,7 +166,7 @@ app.get('/read-data/:purpose', (req, res) => {
   });
   
 
-  pp.listen(3000, '0.0.0.0', () => {
+  app.listen(port, '0.0.0.0', () => {
   console.log(`Server running at port ${port}`);
 });
 
