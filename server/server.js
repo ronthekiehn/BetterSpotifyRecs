@@ -18,6 +18,8 @@ var redirect_uri = 'https://better-spotify-recs.vercel.app/callback';
 // Enable CORS for all routes
 app.use(cors());
 
+app.use(express.static(path.join(__dirname, 'docs')));
+
 app.use(bodyParser.json({ limit: '1mb' })); 
 
 const generateRandomString = (length) => {
