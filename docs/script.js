@@ -1,4 +1,6 @@
-const apiUrl = `https://${window.API_URL}:3000`;
+const serverIP = __SERVER_IP__;
+
+const apiUrl = `https://${serverIP}:3000`;
 console.log(apiUrl);
 
 const params = new URLSearchParams(window.location.hash.substring(1));
