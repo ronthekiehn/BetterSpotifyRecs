@@ -11,7 +11,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        nested: resolve(__dirname, 'callback.html'),
+        callback: resolve(__dirname, 'callback.html'),
       },
     },
   }
