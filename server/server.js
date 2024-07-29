@@ -13,7 +13,8 @@ var cookieParser = require('cookie-parser');
 require('dotenv').config();
 var client_id = process.env.CLIENT_ID; 
 var client_secret = process.env.CLIENT_SECRET; 
-var redirect_uri = 'https://better-spotify-recs.vercel.app/callback'; 
+var serverIP = process.env.SERVER_IP; 
+var redirect_uri = `https://${serverIP}:${port}/callback`; 
 
 // Enable CORS for all routes
 app.use(cors());
