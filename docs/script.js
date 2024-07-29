@@ -20,7 +20,7 @@ function generateRandomString(length) {
 
 function login(show_dialog) {
     const state = generateRandomString(16);
-    document.cookie(stateKey, state);
+    document.cookie = 'stateKey=state';
     const scope = 'user-top-read user-library-read user-read-recently-played user-modify-playback-state user-library-modify user-read-playback-state streaming user-read-email user-read-private';
     const url = new URL('https://accounts.spotify.com/authorize');
     const params = {
