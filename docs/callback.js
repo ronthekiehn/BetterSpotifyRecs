@@ -47,9 +47,7 @@ async function handleCallback() {
     }
 
     document.cookie = `${stateKey}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-
-
-    try {
+    //try {
         const data = await requestToken(code);
         res.cookie('signedIn', 'true');
         console.log("Signed in");
@@ -57,7 +55,7 @@ async function handleCallback() {
         localStorage.setItem('spotify_refresh_token', data.refresh_token);
         
         window.location.href = '/';
-    } catch (error) {
-        throw new Error("Failed to get access token");
+    // } catch (error) {
+    //     throw new Error("Failed to get access token");
     }
 }
