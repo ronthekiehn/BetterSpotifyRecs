@@ -89,7 +89,7 @@ async function getLib(){
         `v1/me/tracks?limit=1&offset=0`, 'GET'
       )).total;
     
-    for (let offset = 1; offset * 50 < num + 50; offset++){
+    for (let offset = 0; offset * 50 < num + 50; offset++){
         let offset50 = offset*50;
 
         let allSongs = (await fetchWebApi(
