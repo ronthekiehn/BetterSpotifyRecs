@@ -40,7 +40,6 @@ async function handleCallback() {
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
     const state = params.get('state');
-    var storedState = document.cookies ? document.cookies[stateKey] : null;
     const storedState = getCookie(stateKey);
     console.log(state);
     console.log(storedState);
