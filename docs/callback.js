@@ -27,12 +27,21 @@ async function requestToken(code) {
     }
 }
 
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  // Get the stored state from cookies
+  
+
 async function handleCallback() {
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
     const state = params.get('state');
     var storedState = document.cookies ? document.cookies[stateKey] : null;
-    console.log(document.cookies);
+    const storedState = getCookie(stateKey);
     console.log(state);
     console.log(storedState);
     if (!state || state !== storedState) {
