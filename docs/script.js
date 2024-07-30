@@ -268,6 +268,7 @@ async function sendDataToServer(data, purpose) {
         await getLib();
         document.getElementById("loading-text").innerHTML = "Getting Recently Played...";
         await getRecent();
+        return;
     }
    
 
