@@ -6,6 +6,7 @@ var redirect_uri = `https://better-spotify-recs.vercel.app/callback`;
 const apiUrl = `http://${serverIP}:80`;
 
 var stateKey = 'spotify_auth_state';
+document.cookie = `${stateKey}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
 var token = undefined;
 var refresh_token = undefined;
 
@@ -20,7 +21,7 @@ function generateRandomString(length) {
 
 function login(show_dialog) {
     const state = generateRandomString(16);
-    document.cookie = `${stateKey}=${state};  path=/`;
+    document.cookie = `${stateKey}=${state}; path=/`;
     const scope = 'user-top-read user-library-read user-read-recently-played user-modify-playback-state user-library-modify user-read-playback-state streaming user-read-email user-read-private';
     const url = new URL('https://accounts.spotify.com/authorize');
     const params = {
