@@ -51,12 +51,3 @@ Greenlock.init({
   debug: true // Enable debug output
 })
 .serve(app);
-
-// Additional logging to verify Greenlock configuration
-app.listen(80, () => {
-  console.log('Listening on port 80 for ACME challenges and redirecting to HTTPS');
-});
-
-app.listen(443, () => {
-  console.log('Listening on port 443 for secure traffic');
-});
