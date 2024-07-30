@@ -254,7 +254,7 @@ async function sendDataToServer(data, purpose) {
 
 
   async function init() {
-    console.log("here")l
+    console.log("here");
     accountName = (await fetchWebApi('v1/me', 'GET')).display_name;
     console.log(accountName);
     try{
