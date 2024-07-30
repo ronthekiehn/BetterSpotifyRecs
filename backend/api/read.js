@@ -1,6 +1,5 @@
 // api/readData.js
 import admin from 'firebase-admin';
-import { join } from 'path';
 import { config } from 'dotenv';
 
 config();
