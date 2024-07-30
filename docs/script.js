@@ -312,7 +312,7 @@ function showTrack(song) {
 
 async function nextTrack() {
     index++;
-    document.getElementById("play-pause").style.backgroundImage = "url('./media/pause.png')";
+    document.getElementById("play-pause").style.backgroundImage = "url('/docs/media/pause.png')";
     await playTrack(recList[index]);
     //if low, get more recs
     if (index > recList.length - 2){
@@ -334,7 +334,7 @@ async function playTrack(song) {
 
 async function previousTrack() {
     index--;
-    document.getElementById("play-pause").style.backgroundImage = "url('./media/pause.png')";
+    document.getElementById("play-pause").style.backgroundImage = "url('/docs/media/pause.png')";
     await playTrack(recList[index]);
 }
 
@@ -366,10 +366,10 @@ async function unlikeTrack() {
 async function playButton() {
     playing = !playing;
     if (playing) {
-        document.getElementById("play-pause").style.backgroundImage = "url('./media/pause.png')";
+        document.getElementById("play-pause").style.backgroundImage = "url('/docs/media/pause.png')";
         await resumeTrack();
     } else {
-        document.getElementById("play-pause").style.backgroundImage = "url('./media/play.png')";
+        document.getElementById("play-pause").style.backgroundImage = "url('/docs/media/play.png')";
         await pauseTrack();
     }
 }
@@ -428,10 +428,10 @@ async function checkIfLiked() {
     let songID =recList[index].id;
     let isLiked = await fetchWebApi(`v1/me/tracks/contains?ids=${songID}`, 'GET');
     if (isLiked[0]) {
-        document.getElementById("like").style.backgroundImage = "url('./media/liked.png')";
+        document.getElementById("like").style.backgroundImage = "url('/docs/media/liked.png')";
         document.getElementById("like").dataset.liked = 'true';
     } else {
-        document.getElementById("like").style.backgroundImage = "url('./media/unliked.png')";
+        document.getElementById("like").style.backgroundImage = "url('/docs/media/unliked.png')";
         document.getElementById("like").dataset.liked = 'false';
     }
 }
@@ -442,18 +442,18 @@ document.getElementById("next").onclick = async function() {
 document.getElementById("like").onclick = async function() {
     if (this.dataset.liked === 'true') {
         await unlikeTrack();
-        this.style.backgroundImage = "url('./media/unliked.png')";
+        this.style.backgroundImage = "url('/docs/media/unliked.png')";
         this.dataset.liked = 'false';
     } else {
         await likeTrack();
-        this.style.backgroundImage = "url('./media/liked.png')";
+        this.style.backgroundImage = "url('/docs/media/liked.png')";
         this.dataset.liked = 'true';
     }
 };
 
 document.getElementById("album-cover-image").addEventListener("dblclick", () =>{
     likeTrack();
-    document.getElementById("like").style.backgroundImage = "url('./media/liked.png')";
+    document.getElementById("like").style.backgroundImage = "url('/docs/media/liked.png')";
     this.dataset.liked = 'true';
 });
 
