@@ -8,10 +8,10 @@ let token = params.get('access_token');
 let refreshToken = params.get('refresh_token');
 let accountName = '';
 
-import like from 'media/liked.png';
-import dislike from 'media/unliked.png';
-import play from 'media/play.png';
-import pause from 'media/pause.png';
+import like from './media/liked.png';
+import dislike from './media/unliked.png';
+import play from './media/play.png';
+import pause from './media/pause.png';
 
 
 const apiUrl = `https://betterspotrecs.duckdns.org:443`;
