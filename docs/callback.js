@@ -57,5 +57,5 @@ async function handleCallback() {
         window.location.href = '/';
     // } catch (error) {
     //     throw new Error("Failed to get access token");
-    }
+    //}
 }
