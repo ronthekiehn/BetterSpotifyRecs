@@ -263,6 +263,20 @@ async function sendDataToServer(data, purpose) {
     console.log(accountName);
     try{
         const blacklistExists = await checkFileExists(`${accountName}-blacklist`);
+        if (blacklistExists) {
+            songDict = await readFileData(`${accountName}-blacklist`);
+            await getRecent();
+            console.log('Data from file:', songDict);
+        } else {
+            console.log('Blacklist does not exist, going to load data');
+            document.getElementById("loading-text").innerHTML = "Getting Top Songs...";
+            await getTopPlayed();
+            document.getElementById("loading-text").innerHTML = "Getting Liked Songs...";
+            await getLib();
+            document.getElementById("loading-text").innerHTML = "Getting Recently Played...";
+            await getRecent();
+            sendDataToServer(songDict, `${accountName}-blacklist`);
+        }
     } catch{
         console.log("server error");
         document.getElementById("server-error").style.display = "block";
@@ -276,30 +290,24 @@ async function sendDataToServer(data, purpose) {
     }
    
 
-    if (blacklistExists) {
-        songDict = await readFileData(`${accountName}-blacklist`);
-        await getRecent();
-        console.log('Data from file:', songDict);
-    } else {
-        console.log('Blacklist does not exist, going to load data');
+    
+    try{
+        const seedlistExists = await checkFileExists(`${accountName}-seedlist`);
+        if (seedlistExists) {
+            seedSongs = await readFileData(`${accountName}-seedlist`);
+            console.log('Data from file:', seedSongs);
+        } else {
+            console.log('seedList does not exist, going to load data');
+            document.getElementById("loading-text").innerHTML = "Getting Top Songs...";
+            await getTopPlayed();
+            sendDataToServer(seedSongs, `${accountName}-seedlist`);
+        }
+    } catch {
+        console.log("server error");
+        document.getElementById("server-error").style.display = "block";
         document.getElementById("loading-text").innerHTML = "Getting Top Songs...";
         await getTopPlayed();
-        document.getElementById("loading-text").innerHTML = "Getting Liked Songs...";
-        await getLib();
-        document.getElementById("loading-text").innerHTML = "Getting Recently Played...";
-        await getRecent();
-        sendDataToServer(songDict, `${accountName}-blacklist`);
-    }
-
-    const seedlistExists = await checkFileExists(`${accountName}-seedlist`);
-    if (seedlistExists) {
-        seedSongs = await readFileData(`${accountName}-seedlist`);
-        console.log('Data from file:', seedSongs);
-    } else {
-        console.log('seedList does not exist, going to load data');
-        document.getElementById("loading-text").innerHTML = "Getting Top Songs...";
-        await getTopPlayed();
-        sendDataToServer(seedSongs, `${accountName}-seedlist`);
+        return;
     }
 }
 
