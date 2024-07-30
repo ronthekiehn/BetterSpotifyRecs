@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', handleCallback);
 
-
+var stateKey = 'spotify_auth_state';
 async function requestToken(code) {
     const url = 'https://accounts.spotify.com/api/token';
     const body = new URLSearchParams({
