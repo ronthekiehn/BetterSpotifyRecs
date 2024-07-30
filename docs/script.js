@@ -254,7 +254,9 @@ async function sendDataToServer(data, purpose) {
 
 
   async function init() {
-    accountName = (await fetchWebApi('v1/me', 'GET').display_name);
+    console.log("here")l
+    accountName = (await fetchWebApi('v1/me', 'GET')).display_name;
+    console.log(accountName);
     try{
         const blacklistExists = await checkFileExists(`${accountName}-blacklist`);
     } catch{
@@ -577,6 +579,7 @@ async function initSpotify() {
         initSpotify();
     } else{
         const signedIn = getCookie('signedIn');
+        console.log(signedIn);
         if (signedIn === 'true') {
             login(false);
         } else {
