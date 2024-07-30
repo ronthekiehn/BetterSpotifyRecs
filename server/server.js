@@ -4,13 +4,11 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const app = express();
-const port = 80;
 
 // Enable CORS for all routes
 app.use(cors());
 
 app.use(bodyParser.json({ limit: '1mb' })); 
-
 
 // Endpoint to receive exported data
 app.post('/export/:purpose', (req, res) => {
@@ -44,8 +42,19 @@ app.get('/read-data/:purpose', (req, res) => {
   });
   
 
-  app.listen(port, '0.0.0.0', () => {
-  console.log(`Server running at port ${port}`);
-});
+  require('greenlock-express')
+  .init({
+    packageRoot: __dirname,
+    configDir: './greenlock.d',
 
+    // contact for security and critical bug notices
+    maintainerEmail: 'ronthekiehn@gmail.com',
 
+    // whether or not to run at cloudscale
+    cluster: false
+  })
+  // Serves on 80 and 443
+  // Get's SSL certificates magically!
+  .ready((glx) => {
+    glx.serveApp(app);
+  });

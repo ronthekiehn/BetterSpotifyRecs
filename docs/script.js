@@ -9,7 +9,7 @@ let token = params.get('access_token');
 let refreshToken = params.get('refresh_token');
 let accountName = '';
 
-const apiUrl = `http://${serverIP}:80`;
+const apiUrl = `https://${serverIP}:80`;
 
 var stateKey = 'spotify_auth_state';
 document.cookie = `${stateKey}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
