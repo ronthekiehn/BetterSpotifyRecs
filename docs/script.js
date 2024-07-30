@@ -259,6 +259,7 @@ async function sendDataToServer(data, purpose) {
         const blacklistExists = await checkFileExists(`${accountName}-blacklist`);
     } catch{
         console.log("server error");
+        document.getElementById("server-error").style.display = "block";
         document.getElementById("loading-text").innerHTML = "Getting Top Songs...";
         await getTopPlayed();
         document.getElementById("loading-text").innerHTML = "Getting Liked Songs...";

@@ -4,9 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Callback</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Processing Spotify Callback...</h1>
+    <div class="player-container" id="container"">
+        <div id="loading" class="loading">
+            <span id="loading-text">Connecting To Spotify...</span>
+        </div>
+    </div>
   <script type="module" src="/callback.js"></script>
 </body>
 </html>
