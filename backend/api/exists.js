@@ -1,28 +1,22 @@
-// api/exists.js
-import { getFirestore } from 'firebase-admin/firestore';
-import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
-import cors from 'cors';
+// api/fileExists.js
+import admin from 'firebase-admin';
+import { config } from 'dotenv';
 
-const serviceAccount = JSON.parse(Buffer.from(process.env.FIREBASE_KEY, 'base64').toString('utf8'));
+config();
 
-if (!getApps().length) {
-  initializeApp({
-    credential: cert(serviceAccount),
+if (!admin.apps.length) {
+  const serviceAccount = JSON.parse(Buffer.from(process.env.FIREBASE_KEY, 'base64').toString('utf8'));
+
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
   });
 }
 
-const db = getFirestore();
+const db = admin.firestore();
 
 export default async (req, res) => {
-  const corsHandler = cors({ origin: true });
+  const { purpose } = req.query;
 
-  corsHandler(req, res, async () => {
-    const { purpose } = req.query;
-    const doc = await db.collection('exports').doc(purpose).get();
-    if (doc.exists) {
-      res.json({ exists: true });
-    } else {
-      res.json({ exists: false });
-    }
-  });
+  const doc = await db.collection('exports').doc(purpose).get();
+  res.json({ exists: doc.exists });
 };
