@@ -41,8 +41,9 @@ async function handleCallback() {
     const code = params.get('code');
     const state = params.get('state');
     const storedState = getCookie(stateKey);
-    console.log(state);
-    console.log(storedState);
+    console.log('State from URL:', state);
+    console.log('Stored state from cookies:', storedState);
+
     if (!state || state !== storedState) {
         throw new Error("state mismatch");
     }
