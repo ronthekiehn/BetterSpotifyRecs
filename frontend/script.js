@@ -14,7 +14,7 @@ import play from './media/play.png';
 import pause from './media/pause.png';
 
 
-const apiUrl = `https://betterspotrecs.duckdns.org:443`;
+const apiUrl = __API_URL__;
 
 var stateKey = 'spotify_auth_state';
 document.cookie = `${stateKey}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
@@ -221,14 +221,14 @@ async function getRecs() {
 
 
 async function checkFileExists(purpose) {
-    const url = `${apiUrl}/file-exists/${purpose}`;
+    const url = `${apiUrl}/api/exists?purpose=${purpose}`;
     const response = await fetch(url);
     const result = await response.json();
     return result.exists;
   }
 
 async function readFileData(purpose) {
-    const url = `${apiUrl}/read-data/${purpose}`;
+    const url = `${apiUrl}/api/read?purpose=${purpose}`;
     const response = await fetch(url);
     if (response.ok) {
       const data = await response.json();
@@ -241,7 +241,7 @@ async function readFileData(purpose) {
   }
 
 async function sendDataToServer(data, purpose) {
-    const url = `${apiUrl}/export/${purpose}`;
+    const url = `${apiUrl}/api/export?purpose=${purpose}`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
