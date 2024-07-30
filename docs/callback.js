@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', handleCallback);
+//var redirect_uri = 'http://localhost:5173/callback';
+var redirect_uri = `https://better-spotify-recs.vercel.app/callback`; 
 
+const client_id = __CLIENT_ID__;
+const client_secret = __CLIENT_SECRET__;
 var stateKey = 'spotify_auth_state';
 async function requestToken(code) {
     const url = 'https://accounts.spotify.com/api/token';
@@ -28,12 +32,10 @@ async function requestToken(code) {
 }
 
 function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
+    let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : null;
+}
 
-  // Get the stored state from cookies
   
 
 async function handleCallback() {
@@ -49,7 +51,7 @@ async function handleCallback() {
     document.cookie = `${stateKey}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
     //try {
         const data = await requestToken(code);
-        res.cookie('signedIn', 'true');
+        document.cookie = `signedIn=true; path=/`;
         console.log("Signed in");
         localStorage.setItem('spotify_access_token', data.access_token);
         localStorage.setItem('spotify_refresh_token', data.refresh_token);

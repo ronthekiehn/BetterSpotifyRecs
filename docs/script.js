@@ -2,6 +2,7 @@ const serverIP = __SERVER_IP__;
 const client_id = __CLIENT_ID__;
 const client_secret = __CLIENT_SECRET__;
 var redirect_uri = `https://better-spotify-recs.vercel.app/callback`; 
+//var redirect_uri = 'http://localhost:5173/callback';
 
 const apiUrl = `http://${serverIP}:80`;
 
@@ -42,7 +43,7 @@ function login(show_dialog) {
 
 
 async function logout() {
-    document.clearCookie('signedIn');
+    document.cookie = `signedIn; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
     window.location.href = '/';
 }
 
