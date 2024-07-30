@@ -103,7 +103,7 @@ body {
   background-color: rgba(0, 0, 0, 0);
   background-size: 80%;
   color: white;
-  background-image: url(/docs/media/unliked.png);
+  background-image: url(media/unliked.png);
   transition: 0.2s ease;
 }
 
@@ -151,7 +151,7 @@ body {
   background-size: 80%;
   background-color: rgba(128, 128, 128, 0);
   color: white;
-  background-image: url(/docs/media/skip.png);
+  background-image: url(media/skip.png);
   margin-right: 10px;
 }
 
@@ -159,7 +159,7 @@ body {
   background-size: 80%;
   background-color: rgba(128, 128, 128, 0);
   color: white;
-  background-image: url(/docs/media/prev.png);
+  background-image: url(media/prev.png);
   margin-left: 10px;
   
 }
@@ -168,7 +168,7 @@ body {
   background-color: rgba(0, 0, 0, 0);
   background-size: 90%;
   color: white;
-  background-image: url(/docs/media/pause.png);
+  background-image: url(media/pause.png);
   
 }
 
