@@ -325,7 +325,7 @@ function showTrack(song) {
 
 async function nextTrack() {
     index++;
-    document.getElementById("play-pause").style.backgroundImage = pause;
+    document.getElementById("play-pause").style.backgroundImage = `url(${pause})`;
     await playTrack(recList[index]);
     //if low, get more recs
     if (index > recList.length - 2){
@@ -347,7 +347,7 @@ async function playTrack(song) {
 
 async function previousTrack() {
     index--;
-    document.getElementById("play-pause").style.backgroundImage = pause;
+    document.getElementById("play-pause").style.backgroundImage = `url(${pause})`;
     await playTrack(recList[index]);
 }
 
@@ -379,10 +379,10 @@ async function unlikeTrack() {
 async function playButton() {
     playing = !playing;
     if (playing) {
-        document.getElementById("play-pause").style.backgroundImage = pause;
+        document.getElementById("play-pause").style.backgroundImage = `url(${pause})`;
         await resumeTrack();
     } else {
-        document.getElementById("play-pause").style.backgroundImage = play;
+        document.getElementById("play-pause").style.backgroundImage = `url(${play})`;
         await pauseTrack();
     }
 }
@@ -441,10 +441,10 @@ async function checkIfLiked() {
     let songID =recList[index].id;
     let isLiked = await fetchWebApi(`v1/me/tracks/contains?ids=${songID}`, 'GET');
     if (isLiked[0]) {
-        document.getElementById("like").style.backgroundImage = like;
+        document.getElementById("like").style.backgroundImage = `url(${like})`;
         document.getElementById("like").dataset.liked = 'true';
     } else {
-        document.getElementById("like").style.backgroundImage = dislike;
+        document.getElementById("like").style.backgroundImage = `url(${dislike})`;
         document.getElementById("like").dataset.liked = 'false';
     }
 }
@@ -455,18 +455,18 @@ document.getElementById("next").onclick = async function() {
 document.getElementById("like").onclick = async function() {
     if (this.dataset.liked === 'true') {
         await unlikeTrack();
-        this.style.backgroundImage = dislike;
+        this.style.backgroundImage = `url(${dislike})`;
         this.dataset.liked = 'false';
     } else {
         await likeTrack();
-        this.style.backgroundImage = like;
+        this.style.backgroundImage = `url(${like})`;
         this.dataset.liked = 'true';
     }
 };
 
 document.getElementById("album-cover-image").addEventListener("dblclick", () =>{
     likeTrack();
-    document.getElementById("like").style.backgroundImage = like;
+    document.getElementById("like").style.backgroundImage = `url(${like})`;
     this.dataset.liked = 'true';
 });
 
