@@ -32,6 +32,8 @@ async function handleCallback() {
     const code = params.get('code');
     const state = params.get('state');
     var storedState = document.cookies ? document.cookies[stateKey] : null;
+    console.log(document.cookies);
+    console.log(document.cookies[stateKey]);
     console.log(state);
     console.log(storedState);
     if (!state || state !== storedState) {
