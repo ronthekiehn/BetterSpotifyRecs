@@ -1,5 +1,4 @@
 const client_id = __CLIENT_ID__;
-const client_secret = __CLIENT_SECRET__;
 var redirect_uri = `https://better-spotify-recs.vercel.app/callback`; 
 //var redirect_uri = 'http://localhost:5173/callback';
 
@@ -14,7 +13,7 @@ import play from './media/play.png';
 import pause from './media/pause.png';
 
 
-const apiUrl = __API_URL__;
+const apiUrl = 'https://spotify-recs-backend.vercel.app/';
 
 var stateKey = 'spotify_auth_state';
 document.cookie = `${stateKey}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
