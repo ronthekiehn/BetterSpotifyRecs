@@ -4,12 +4,15 @@ const client_secret = __CLIENT_SECRET__;
 var redirect_uri = `https://better-spotify-recs.vercel.app/callback`; 
 //var redirect_uri = 'http://localhost:5173/callback';
 
+const params = new URLSearchParams(window.location.hash.substring(1));
+let token = params.get('access_token');
+let refreshToken = params.get('refresh_token');
+let accountName = '';
+
 const apiUrl = `http://${serverIP}:80`;
 
 var stateKey = 'spotify_auth_state';
 document.cookie = `${stateKey}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-var token = undefined;
-var refresh_token = undefined;
 
 function generateRandomString(length) {
     let text = '';
@@ -251,28 +254,44 @@ async function sendDataToServer(data, purpose) {
 
 
   async function init() {
-    const blacklistExists = await checkFileExists('blacklist');
+    accountName = (await fetchWebApi('v1/me', 'GET').display_name);
+    try{
+        const blacklistExists = await checkFileExists(`${accountName}-blacklist`);
+    } catch{
+        console.log("server error");
+        document.getElementById("loading-text").innerHTML = "Getting Top Songs...";
+        await getTopPlayed();
+        document.getElementById("loading-text").innerHTML = "Getting Liked Songs...";
+        await getLib();
+        document.getElementById("loading-text").innerHTML = "Getting Recently Played...";
+        await getRecent();
+    }
+   
+
     if (blacklistExists) {
-        songDict = await readFileData('blacklist');
+        songDict = await readFileData(`${accountName}-blacklist`);
+        await getRecent();
         console.log('Data from file:', songDict);
     } else {
         console.log('Blacklist does not exist, going to load data');
-        console.log('getting top songs');
+        document.getElementById("loading-text").innerHTML = "Getting Top Songs...";
         await getTopPlayed();
-        console.log('getting library');
+        document.getElementById("loading-text").innerHTML = "Getting Liked Songs...";
         await getLib();
-        sendDataToServer(songDict, 'blacklist');
+        document.getElementById("loading-text").innerHTML = "Getting Recently Played...";
+        await getRecent();
+        sendDataToServer(songDict, `${accountName}-blacklist`);
     }
 
-    const seedlistExists = await checkFileExists('seedlist');
+    const seedlistExists = await checkFileExists(`${accountName}-seedlist`);
     if (seedlistExists) {
-        seedSongs = await readFileData('seedlist');
+        seedSongs = await readFileData(`${accountName}-seedlist`);
         console.log('Data from file:', seedSongs);
     } else {
         console.log('seedList does not exist, going to load data');
-        console.log('getting top songs');
+        document.getElementById("loading-text").innerHTML = "Getting Top Songs...";
         await getTopPlayed();
-        sendDataToServer(seedSongs, 'seedlist');
+        sendDataToServer(seedSongs, `${accountName}-seedlist`);
     }
 }
 
@@ -306,7 +325,7 @@ async function playTrack(song) {
     await checkIfLiked();
 
     songDict[songID] = song.name;
-    sendDataToServer(songDict, 'blacklist');
+    sendDataToServer(songDict, `${accountName}-blacklist`);
     
 }
 
@@ -553,7 +572,6 @@ async function initSpotify() {
     return match ? match[2] : null;
 }
   document.addEventListener('DOMContentLoaded', function() {
-    token = localStorage.getItem('spotify_access_token');
     if (token){
         initSpotify();
     } else{

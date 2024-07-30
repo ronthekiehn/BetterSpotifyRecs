@@ -49,15 +49,25 @@ async function handleCallback() {
     }
 
     document.cookie = `${stateKey}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-    //try {
-        const data = await requestToken(code);
+
+    const data = await requestToken(code);
+    document.cookie = `signedIn=true; path=/`;
+    console.log("Signed in");
+    localStorage.setItem('spotify_access_token', data.access_token);
+    localStorage.setItem('spotify_refresh_token', data.refresh_token);
+    
+    if (data.access_token && data.refresh_token) {
         document.cookie = `signedIn=true; path=/`;
         console.log("Signed in");
-        localStorage.setItem('spotify_access_token', data.access_token);
-        localStorage.setItem('spotify_refresh_token', data.refresh_token);
         
-        window.location.href = '/';
-    // } catch (error) {
-    //     throw new Error("Failed to get access token");
-    //}
+        window.location.href = '/#' + new URLSearchParams({
+            access_token: data.access_token,
+            refresh_token: data.refresh_token
+        }).toString();
+    } else {
+        window.location.href = '/#' + new URLSearchParams({
+            error: 'invalid_token'
+        }).toString();
+    }
+
 }
