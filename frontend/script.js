@@ -89,16 +89,23 @@ async function getLib(){
         `v1/me/tracks?limit=1&offset=0`, 'GET'
       )).total;
     
-    for (let offset = 0; offset * 50 < num + 50; offset++){
-        let offset50 = offset*50;
-
+    if (num <= 50){ //my next block doesn't work if you have less than 50
         let allSongs = (await fetchWebApi(
-            `v1/me/tracks?limit=50&offset=${offset50}`, 'GET'
+            `v1/me/tracks?limit=50&offset=0`, 'GET'
           )).items;
-
-        blacklist2(allSongs);
-        await sleep(1000);
-          
+          blacklist2(allSongs);
+    } else{
+        for (let offset = 0; offset * 50 < num + 50; offset++){
+            let offset50 = offset*50;
+    
+            let allSongs = (await fetchWebApi(
+                `v1/me/tracks?limit=50&offset=${offset50}`, 'GET'
+              )).items;
+    
+            blacklist2(allSongs);
+            await sleep(1000);
+              
+        }
     }
   }
 
