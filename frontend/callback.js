@@ -45,6 +45,7 @@ async function handleCallback() {
     const storedState = getCookie(stateKey);
 
     if (!state || state !== storedState) {
+        document.getElementById("loading-text").innerHTML = "Error connecting to Spotify. Please try refreshing or clearing your cookies.";
         throw new Error("state mismatch");
     }
 

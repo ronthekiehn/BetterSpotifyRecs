@@ -258,10 +258,10 @@ async function sendDataToServer(data, purpose) {
 
 
   async function init() {
-    console.log("here");
     accountName = (await fetchWebApi('v1/me', 'GET')).display_name;
     console.log(accountName);
     try{
+        document.getElementById("loading-text").innerHTML = "Connecting to Server...";
         const blacklistExists = await checkFileExists(`${accountName}-blacklist`);
         if (blacklistExists) {
             songDict = await readFileData(`${accountName}-blacklist`);
