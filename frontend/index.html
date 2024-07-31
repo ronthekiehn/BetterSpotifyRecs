@@ -11,7 +11,19 @@
 <body>
     <div class= "content-wrapper" id="content-wrapper">
         <span id="server-error" style="display: none;">NOTE: YOU ARE NOT CONNECTED TO THE SERVER. THIS IS LIKELY AN ISSUE ON MY END. You can continue to use this website, but the blacklist will take much longer to load and not update.</span>
-        <button id="login-button" style="display:none;">Login with Spotify</button>
+        <div class="landing-page" id="landing-page" style="display:none">
+            <span id="landing-page-text">
+                Welcome to Better Spotify Recs (name pending). 
+                This website will generate recommended songs for you, 
+                while maintaining a blacklist of songs you've already heard. 
+                We will start by blacklisting all of your liked and top songs.
+                To get started, click the button below to log in with Spotify.
+            </span>
+            <button id="login-button">
+                <img id="logo" src="media/spotify-button.png"> Login with Spotify
+            </button>
+        </div>
+        
         <div class="settings-menu" id="settings" style="display: none">
             <button id="settings-button">Settings</button>
             <div id="settings-dropdown" class="dropdown-content" style="display: none">

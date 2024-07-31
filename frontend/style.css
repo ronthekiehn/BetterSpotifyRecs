@@ -18,14 +18,43 @@ body {
   display: block;
   width: 100%;
 }
-#login-button{
-  background-color: #008CBA;
-  color: #e7e7e7;
+#login-button {
+  background-color: #1ed760;
+  color: #ffffff;
   border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
+  border-radius: 10px;
+  padding-right: 20px;
   cursor: pointer;
+  transition: 0.2s ease;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
 }
+
+#login-button img {
+  height: 50px;
+}
+
+#login-button:hover {
+  transform: scale(1.2);
+} 
+
+#login-button:active{
+  transform: scale(0.8);
+}
+
+.landing-page {
+  text-align: center;
+  align-items: center;
+  display:flex;
+  flex-direction: column;
+  max-width: 400px;
+}
+
+#landing-page-text{
+  margin: 20px
+}
+
 .player-container {
   background-color: #e7e7e7;
   padding: 25px 25px 25px 25px;
@@ -131,7 +160,6 @@ body {
 
 .like-button:active{
   transform: scale(0.8);
-
 }
 .controls {
   margin: auto;

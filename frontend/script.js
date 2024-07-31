@@ -287,7 +287,7 @@ async function showDevices(){
     });
 }
   async function init() {
-    document.getElementById('login-button').style.display = 'none';
+    document.getElementById('landing-page').style.display = 'none';
     addSpotifyPlayerScript();
     document.getElementById("container").style.display = "flex";
     
@@ -646,7 +646,7 @@ function getCookie(name) {
             login(false);
         } else {
             // If not signed in, show the "Login with Spotify" button
-            document.getElementById('login-button').style.display = 'block';
+            document.getElementById('landing-page').style.display = 'block';
             document.getElementById('login-button').onclick = () => {
                 login(true);
             };
