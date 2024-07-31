@@ -34,9 +34,15 @@
         <span id="hello-message"></span>
         <div class="player-container" id="container" style="display: none;">
             <div id="device-selection" class="device-selection" style="display: none;">
-                <span id="device-selection-text">Select a device to play music on:</span>
-                <div id="device-list"></div>
-                <button id="refresh-devices">Refresh Devices</button>
+                <span id="device-selection-text">Select a device to play music on</span>
+                <div id="available-devices">
+                    <span id="prompt-text">Available devices:</span>
+                    <button id="refresh-devices">Refresh</button>
+                </div>                
+                <div id="device-list">
+                    <button>iphone</button>
+                    <button>computer</button>
+                </div>
                 <button id="start-playing">Start Playing</button>
             </div>
 

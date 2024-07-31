@@ -16,6 +16,7 @@ body {
 
 #hello-message {
   display: block;
+  margin: 20px;
   width: 100%;
 }
 #login-button {
@@ -48,7 +49,7 @@ body {
   align-items: center;
   display:flex;
   flex-direction: column;
-  max-width: 400px;
+  max-width: 500px;
 }
 
 #landing-page-text{
@@ -280,6 +281,17 @@ body {
 
 .device-selection {
   text-align: center;
+  align-items: center;
+  display:flex;
+  flex-direction: column;
+}
+
+
+#available-devices {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
 }
 
 .device-selection button{
@@ -289,27 +301,37 @@ body {
   padding: 15px;
   cursor: pointer;
   transition: 0.2s ease;
+  text-align: left;
+  flex-direction: column;
 }
 
+#prompt-text {
+  margin-right: 10px;
+  text-align: left;
+  margin-top: 20px;
+}
 #device-list {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  text-align: left;
 }
 
 #device-list button {
-  background-color: white;
   color: black;
   transition: 0.2s ease;
 }
 
 #start-playing {
-  background-color: black;
+  background-color: #1ed760;
   color: white;
+
 }
 
 #refresh-devices {
-  background-color: #008CBA;
+  background-color: #00c3f4;
   color: white;
+  padding: 10px 10px;
+  margin-left: 30px;
 }
 
 .device-selection button:hover {
