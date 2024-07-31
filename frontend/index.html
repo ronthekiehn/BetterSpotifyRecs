@@ -9,39 +9,50 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <span id="server-error" style="display: none;">NOTE: YOU ARE NOT CONNECTED TO THE SERVER. THIS IS LIKELY AN ISSUE ON MY END. You can continue to use this website, but the blacklist will take much longer to load and not update.</span>
-    <button id="login-button" style="display:none;">Login with Spotify</button>
-    <div class="settings-menu" id="settings" style="display: none">
-        <button id="settings-button">Settings</button>
-        <div id="settings-dropdown" class="dropdown-content" style="display: none">
-          <div id="devices-list"></div>
+    <div class= "content-wrapper" id="content-wrapper">
+        <span id="server-error" style="display: none;">NOTE: YOU ARE NOT CONNECTED TO THE SERVER. THIS IS LIKELY AN ISSUE ON MY END. You can continue to use this website, but the blacklist will take much longer to load and not update.</span>
+        <button id="login-button" style="display:none;">Login with Spotify</button>
+        <div class="settings-menu" id="settings" style="display: none">
+            <button id="settings-button">Settings</button>
+            <div id="settings-dropdown" class="dropdown-content" style="display: none">
+            <div id="devices-list"></div>
+            </div>
+            <button id="sign-out">Sign Out</button>
         </div>
-        <button id="sign-out">Sign Out</button>
-      </div>
-    <div class="player-container" id="container" style="display: none;">
-        <div id="loading" class="loading">
-            <span id="loading-text">Loading...</span>
-        </div>
-        
-        <div id="loaded-content" class="loaded-content" style="display: none;">
-            <div class="song-details">
-                <div class="album-cover">
-                    <img id="album-cover-image" src="" alt="Album Cover" />
-                </div>
-                <div class="song-details-content">
-                    <div class="song-info">
-                        <span id="current-song">Current Song</span>
-                        <span id="artist-details" class="artist-details">Artist</span>
+        <span id="hello-message"></span>
+        <div class="player-container" id="container" style="display: none;">
+            <div id="device-selection" class="device-selection" style="display: none;">
+                <span id="device-selection-text">Select a device to play music on:</span>
+                <div id="device-list"></div>
+                <button id="refresh-devices">Refresh Devices</button>
+                <button id="start-playing">Start Playing</button>
+            </div>
+
+            <div id="loading" class="loading">
+                <span id="loading-text">Loading...</span>
+            </div>
+            
+            <div id="loaded-content" class="loaded-content" style="display: none;">
+                <div class="song-details">
+                    <div class="album-cover">
+                        <img id="album-cover-image" src="" alt="Album Cover" />
                     </div>
-                    <button id="like" class="like-button"></button>
+                    <div class="song-details-content">
+                        <div class="song-info">
+                            <span id="current-song">Current Song</span>
+                            <span id="artist-details" class="artist-details">Artist</span>
+                        </div>
+                        <button id="like" class="like-button"></button>
+                    </div>
                 </div>
-            </div>
-            <div class="controls">
-                <button id="previous" class="previous-button"></button>
-                <button id="play-pause" class="play-button"></button>
-                <button id="next" class="next-button"></button>
-            </div>
+                <div class="controls">
+                    <button id="previous" class="previous-button"></button>
+                    <button id="play-pause" class="play-button"></button>
+                    <button id="next" class="next-button"></button>
+                </div>
+            </div> 
         </div>
     </div>
+    
 </body>
 </html>

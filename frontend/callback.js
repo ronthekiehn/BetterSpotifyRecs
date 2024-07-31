@@ -4,6 +4,7 @@ var redirect_uri = `https://better-spotify-recs.vercel.app/callback`;
 
 const client_id = __CLIENT_ID__;
 const client_secret = __CLIENT_SECRET__;
+
 var stateKey = 'spotify_auth_state';
 async function requestToken(code) {
     const url = 'https://accounts.spotify.com/api/token';

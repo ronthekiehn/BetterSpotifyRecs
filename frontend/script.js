@@ -263,10 +263,40 @@ async function sendDataToServer(data, purpose) {
     }
   }
 
+async function selectDevice(deviceId) {
+        console.log("selecting device", deviceId);
+        playerID = deviceId;
+        await showDevices();
+}
 
+async function showDevices(){
+    console.log("showing devices");
+    devices = (await fetchWebApi('v1/me/player/devices', 'GET')).devices;
+    console.log(devices);
+    const deviceList = document.getElementById("device-list");
+    deviceList.innerHTML = '';
+    devices.forEach(device => {
+        const button = document.createElement("button");
+        if (playerID === device.id) {
+            button.style.border = '2px solid #1DB954';
+            button.style.fontWeight = 'bold';
+        }
+        button.textContent = device.name;
+        button.onclick = () => selectDevice(device.id);
+        deviceList.appendChild(button);
+    });
+}
   async function init() {
+    document.getElementById('login-button').style.display = 'none';
+    addSpotifyPlayerScript();
+    document.getElementById("container").style.display = "flex";
+    
+
     accountName = (await fetchWebApi('v1/me', 'GET')).display_name;
-    console.log(accountName);
+    document.getElementById("hello-message").innerHTML = `Hi ${accountName}, we're loading your data...`;
+
+    document.getElementById("loading-text").innerHTML = "Loading Player...";
+    await loadPlayer;
     try{
         document.getElementById("loading-text").innerHTML = "Connecting to Server...";
         const blacklistExists = await checkFileExists(`${accountName}-blacklist`);
@@ -293,7 +323,6 @@ async function sendDataToServer(data, purpose) {
         await getLib();
         document.getElementById("loading-text").innerHTML = "Getting Recently Played...";
         await getRecent();
-        return;
     }
    
 
@@ -314,9 +343,15 @@ async function sendDataToServer(data, purpose) {
         document.getElementById("server-error").style.display = "block";
         document.getElementById("loading-text").innerHTML = "Getting Top Songs...";
         await getTopPlayed();
-        return;
     }
+
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("hello-message").style.display = "none";
+    document.getElementById("device-selection").style.display = "block";
+    await showDevices();
 }
+
+
 
 
 
@@ -349,6 +384,9 @@ async function playTrack(song) {
 
     songDict[songID] = song.name;
     sendDataToServer(songDict, `${accountName}-blacklist`);
+
+    songLength = (await fetchWebApi(`v1/tracks/${songID}`, 'GET')).duration_ms;
+    checkSongEnd(songLength);
     
 }
 
@@ -395,12 +433,17 @@ async function playButton() {
 }
 
 
-async function checkPlaybackState() {
-    let stillPlaying = (await fetchWebApi(`v1/me/player?device_id=${playerID}`, 'GET'
-      )).is_playing;
-    if (!stillPlaying && playing) { //basically if we're paused, but we haven't clicked pause
+async function checkSongEnd(time) {
+    await sleep(time);
+    console.log("checking now");
+   
+    let current = (await fetchWebApi(`v1/me/player?device_id=${playerID}`, 'GET')).progress_ms;
+    console.log(current, songLength, time);
+    if (current >= songLength -1000) { //if the song is over
         console.log("song ended");
         await nextTrack();
+    } else {
+        checkSongEnd(songLength - current);
     }
 }
 
@@ -540,12 +583,16 @@ document.addEventListener('click', (event) => {
     }
 });
 
-function removeLoginButton() {
-    const loginButton = document.getElementById('login-button');
-    if (loginButton) {
-      loginButton.remove();
+document.getElementById('refresh-devices').addEventListener('click', showDevices);
+
+document.getElementById('start-playing').addEventListener('click', async () => {
+    if (playerID === undefined) {
+        alert('Please select a device first');
+        return;
+    } else{
+        await startPlaying();
     }
-  }
+});
 
   function addSpotifyPlayerScript() {
     const script = document.createElement('script');
@@ -565,17 +612,14 @@ let recList = [];
 let playing = true;
 let index = 0;
 let playerID = undefined;
+let devices = undefined;
+let songLength = undefined;
 
-async function initSpotify() {
-    document.getElementById('login-button').style.display = 'none';
-    addSpotifyPlayerScript();
-    document.getElementById("container").style.display = "flex";
+async function startPlaying() {
     
-    await loadPlayer;
-    await init();
     await getRecs();
 
-    document.getElementById("loading-text").style.display = "none";
+    document.getElementById("device-selection").style.display = "none";
     document.getElementById("settings").style.display = "block";
     document.querySelector('.player-container').classList.add('ready');
     document.getElementById("loaded-content").style.display = "block";
@@ -586,16 +630,15 @@ async function initSpotify() {
 
     await playTrack(recList[index]);
     await playApi(`v1/me/player/repeat?state=off&device_id=${playerID}`, 'PUT');
-    setInterval(checkPlaybackState, 5000);
   }
   
-  function getCookie(name) {
+function getCookie(name) {
     let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
     return match ? match[2] : null;
 }
   document.addEventListener('DOMContentLoaded', function() {
     if (token){
-        initSpotify();
+        init();
     } else{
         const signedIn = getCookie('signedIn');
         console.log(signedIn);

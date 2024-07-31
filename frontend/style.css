@@ -6,6 +6,26 @@ body {
   height: 100vh;
   background-color: #ffffff;
 }
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#hello-message {
+  display: block;
+  width: 100%;
+}
+#login-button{
+  background-color: #008CBA;
+  color: #e7e7e7;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
 .player-container {
   background-color: #e7e7e7;
   padding: 25px 25px 25px 25px;
@@ -14,13 +34,11 @@ body {
   text-align: center;
   align-items: center;
   display:flex;
-  max-width: 250px;
   transition: 0.5s ease;
-  transform: scale(0.7);
 }
 
 .player-container.ready {
-  transform: scale(1);
+  max-width: 250px;
   padding: 25px 23px 60px 23px;
 }
 
@@ -173,7 +191,6 @@ body {
 }
 
 .loading {
-  font-size: 1.5em;
   color: #333;
 }
 .get-started-button {
@@ -231,3 +248,49 @@ body {
 .dropdown-content button:hover {
   background-color: #ddd;
 }
+
+
+.device-selection {
+  text-align: center;
+}
+
+.device-selection button{
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 15px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+#device-list {
+  display: flex;
+  align-items: center;
+}
+
+#device-list button {
+  background-color: white;
+  color: black;
+  transition: 0.2s ease;
+}
+
+#start-playing {
+  background-color: black;
+  color: white;
+}
+
+#refresh-devices {
+  background-color: #008CBA;
+  color: white;
+}
+
+.device-selection button:hover {
+  transform: scale(1.2);
+}
+
+.device-selection button:active {
+  transform: scale(0.8);
+}
+
+
+
