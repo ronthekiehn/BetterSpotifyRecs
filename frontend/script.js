@@ -603,7 +603,7 @@ document.getElementById('start-playing').addEventListener('click', async () => {
   
 function signOut() {
     document.cookie = 'signedIn=false; path=/';
-    window.location.href = `logout`;
+    window.location.href = '/';
 }
 
 let songDict = {};
@@ -646,7 +646,7 @@ function getCookie(name) {
             login(false);
         } else {
             // If not signed in, show the "Login with Spotify" button
-            document.getElementById('landing-page').style.display = 'block';
+            document.getElementById('landing-page').style.display = 'flex';
             document.getElementById('login-button').onclick = () => {
                 login(true);
             };
