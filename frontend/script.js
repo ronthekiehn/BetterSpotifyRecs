@@ -443,7 +443,7 @@ async function checkSongEnd(time) {
         console.log("song ended");
         await nextTrack();
     } else {
-        checkSongEnd(songLength - current);
+        checkSongEnd(songLength - current - 1000);
     }
 }
 
