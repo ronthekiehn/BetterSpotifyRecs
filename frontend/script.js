@@ -223,6 +223,11 @@ async function getRecs() {
     tempList.forEach(track => {
         recList.push(track);
     });
+
+    if (tempList.length < 2){ //if we don't have enough new recs, get more
+        await getRecs();
+    }
+
 }
 
 
@@ -367,7 +372,6 @@ function showTrack(song) {
 
 async function nextTrack() {
     index++;
-    document.getElementById("play-pause").style.backgroundImage = `url(${pause})`;
     await playTrack(recList[index]);
     //if low, get more recs
     if (index > recList.length - 2){
@@ -380,6 +384,8 @@ async function playTrack(song) {
     console.log("playing", song);
     let songID = song.id;
     await playApi(`v1/me/player/play?device_id=${playerID}`, 'PUT', JSON.stringify({ uris: [`spotify:track:${songID}`] }));
+    document.getElementById("play-pause").style.backgroundImage = `url(${pause})`;
+    playing = true;
     await checkIfLiked();
 
     songDict[songID] = song.name;
@@ -392,7 +398,6 @@ async function playTrack(song) {
 
 async function previousTrack() {
     index--;
-    document.getElementById("play-pause").style.backgroundImage = `url(${pause})`;
     await playTrack(recList[index]);
 }
 
