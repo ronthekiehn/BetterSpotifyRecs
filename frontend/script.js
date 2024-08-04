@@ -49,11 +49,6 @@ function login(show_dialog) {
 };
 
 
-async function logout() {
-    document.cookie = `signedIn; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-    window.location.href = '/';
-}
-
 
 async function fetchWebApi(endpoint, method, body) {
     const res = await fetch(`https://api.spotify.com/${endpoint}`, {
@@ -278,7 +273,13 @@ async function showDevices(){
     console.log("showing devices");
     devices = (await fetchWebApi('v1/me/player/devices', 'GET')).devices;
     console.log(devices);
-    const deviceList = document.getElementById("device-list");
+    let deviceList;
+    if (started){
+        deviceList = document.getElementById("settings-device-list");
+    } else{
+        deviceList = document.getElementById("device-list");
+    }
+
     deviceList.innerHTML = '';
     devices.forEach(device => {
         const button = document.createElement("button");
@@ -533,7 +534,9 @@ document.getElementById("previous").onclick = async function() {
     await previousTrack();
 };
 
-document.getElementById("sign-out").onclick = signOut;
+
+
+
 
 window.addEventListener('keydown', function(event){
     if(event.key === ' '){
@@ -542,53 +545,34 @@ window.addEventListener('keydown', function(event){
 });
 
 
-async function updateDevicesDropdown(devices) {
-    const devicesList = document.getElementById('devices-list');
-    devicesList.innerHTML = '';
 
-    devices.forEach(device => {
-        const button = document.createElement('button');
-        button.innerText = device.name;
+document.getElementById('settings-button').addEventListener('click', async () => {
+    const menu = document.getElementById('settings-menu');
+    const button = document.getElementById('settings-button');
+    if (menu.style.right === '0px') {
+        menu.style.right = '-200px'; 
+        button.style.right = '5px'; 
+    } else {
+        menu.style.right = '0px'; 
+        button.style.right = '205px'; 
+        let deviceSet = document.getElementById("settings-devices");
 
-        if (device.is_active) {
-            button.innerHTML += ' ✔'; 
-            button.style.fontWeight = 'bold';
-        }
-
-        button.onclick = async () => {
-            await pauseTrack();
-            playerID = device.id;
-            
-            await resumeTrack();
-
-            await playApi(`v1/me/player/repeat?state=off&device_id=${playerID}`, 'PUT');
-            
-            const newdevice = (await fetchWebApi('v1/me/player/devices', 'GET')).devices;
-            updateDevicesDropdown(newdevice);
-        };
-
-        devicesList.appendChild(button);
-    });
-}
-
-document.getElementById('settings-button').addEventListener('click', async (event) => {
-    event.stopPropagation();
-    const dropdown = document.getElementById('settings-dropdown');
-    dropdown.style.display = "block";
-
-    const devices = (await fetchWebApi('v1/me/player/devices', 'GET')).devices;
-    updateDevicesDropdown(devices);
-});
-
-document.addEventListener('click', (event) => {
-    const dropdown = document.getElementById('settings-dropdown');
-    const settingsButton = document.getElementById('settings-button');
-    if (!dropdown.contains(event.target) && event.target !== settingsButton) {
-        dropdown.style.display = "none";
+        document.getElementById("select-device").addEventListener('click', async () => {
+            if (deviceSet.style.display === 'flex') {
+                deviceSet.style.display = 'none';
+            } else {
+                deviceSet.style.display = 'flex';
+                await showDevices();
+            }
+        });
     }
 });
 
-document.getElementById('refresh-devices').addEventListener('click', showDevices);
+document.getElementById("sign-out").onclick = signOut;
+
+document.getElementById("settings-refresh-devices").addEventListener('click', showDevices);
+
+document.getElementById('refresh-devices').addEventListener('click', showDevices());
 
 document.getElementById('start-playing').addEventListener('click', async () => {
     if (playerID === undefined) {
@@ -619,22 +603,23 @@ let index = 0;
 let playerID = undefined;
 let devices = undefined;
 let songLength = undefined;
+let started = false;
 
 async function startPlaying() {
     
     await getRecs();
 
     document.getElementById("device-selection").style.display = "none";
-    document.getElementById("settings").style.display = "block";
+    document.getElementById("settings-button").style.display = "block";
     document.querySelector('.player-container').classList.add('ready');
     document.getElementById("loaded-content").style.display = "block";
     document.querySelector('.album-cover').classList.add('fade-in-album');
     document.querySelector('.song-details').classList.add('fade-in-album');
     document.querySelector('.controls').classList.add('fade-in-controls');
     
-
     await playTrack(recList[index]);
     await playApi(`v1/me/player/repeat?state=off&device_id=${playerID}`, 'PUT');
+    started = true;
   }
   
 function getCookie(name) {

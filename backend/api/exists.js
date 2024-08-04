@@ -1,4 +1,3 @@
-// api/fileExists.js
 import admin from 'firebase-admin';
 import { config } from 'dotenv';
 

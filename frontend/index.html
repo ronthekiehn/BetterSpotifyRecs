@@ -24,24 +24,32 @@
             </button>
         </div>
         
-        <div class="settings-menu" id="settings" style="display: none">
-            <button id="settings-button">Settings</button>
-            <div id="settings-dropdown" class="dropdown-content" style="display: none">
-            <div id="devices-list"></div>
+        <button id="settings-button" style="display: none"></button>
+        <div class="settings-menu" id="settings-menu">
+            <button id="about-button">About</button>
+            <button id="select-device">Change Device</button>
+            <div id="settings-devices" class="settings-device-selection" style="display: none">
+                <div class="available-devices">
+                    <span id="settings-prompt-text">Available devices:</span>
+                    <button id="settings-refresh-devices" class="refresh-devices">Refresh</button>
+                </div>                
+                <div class="device-list" id="settings-device-list"></div>
             </div>
-            <button id="sign-out">Sign Out</button>
+            <button id="rec-button">Rec Settings</button>
+            <div class="sign-out-container">
+                <button id="sign-out">Sign Out</button>
+            </div>
         </div>
+        
         <span id="hello-message"></span>
         <div class="player-container" id="container" style="display: none;">
             <div id="device-selection" class="device-selection" style="display: none;">
                 <span id="device-selection-text">Select a device to play music on</span>
-                <div id="available-devices">
-                    <span id="prompt-text">Available devices:</span>
-                    <button id="refresh-devices">Refresh</button>
+                <div class="available-devices">
+                    <span id="prompt-text" class="prompt-text">Available devices:</span>
+                    <button id="refresh-devices" class="refresh-devices">Refresh</button>
                 </div>                
-                <div id="device-list">
-                    <button>iphone</button>
-                    <button>computer</button>
+                <div class="device-list" id="device-list">
                 </div>
                 <button id="start-playing">Start Playing</button>
             </div>

@@ -6,6 +6,23 @@ body {
   height: 100vh;
   background-color: #ffffff;
 }
+
+button {
+  border: none;
+  border-radius: 5px;
+  padding: 15px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.2);
+}
+
+button:active {
+  transform: scale(0.8);
+}
+
 .content-wrapper {
   display: flex;
   flex-direction: column;
@@ -26,7 +43,6 @@ body {
   border-radius: 10px;
   padding-right: 20px;
   cursor: pointer;
-  transition: 0.2s ease;
   display: flex; 
   align-items: center; 
   justify-content: center;
@@ -36,13 +52,6 @@ body {
   height: 50px;
 }
 
-#login-button:hover {
-  transform: scale(1.2);
-} 
-
-#login-button:active{
-  transform: scale(0.8);
-}
 
 .landing-page {
   text-align: center;
@@ -152,16 +161,8 @@ body {
   background-size: 80%;
   color: white;
   background-image: url(media/unliked.png);
-  transition: 0.2s ease;
 }
 
-.like-button:hover {
-    transform: scale(1.2);
-}
-
-.like-button:active{
-  transform: scale(0.8);
-}
 .controls {
   margin: auto;
   background-color: white;
@@ -183,16 +184,8 @@ body {
   cursor: pointer;
   background-position: center;
   background-repeat: no-repeat;
-  transition: transform 0.2s ease;
 }
 
-.controls button:hover {
-    transform: scale(1.2);
-}
-
-.controls button:active {
-  transform: scale(0.8);
-}
 
 .next-button {
   background-size: 80%;
@@ -230,20 +223,56 @@ body {
   padding: 10px 20px;
   cursor: pointer;
 }
-
 .settings-menu {
   position: fixed;
-  top: 10px;
-  right: 10px;
+  top: 0;
+  right: -200px;
+  width: 200px;
+  height: 100vh;
+  background-color: #e7e7e7;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.5s ease;
 }
 
+.settings-menu button {
+  width: 80%;
+  margin: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+
 #settings-button {
-  background-color: #e7e7e7;
-  color: black;
+  position: fixed;
+  top: 5px;
+  right: 5px;
   border: none;
   border-radius: 5px;
-  padding: 10px;
+  padding: 15px;
   cursor: pointer;
+  background-image: url(media/menu.png);
+  background-size: cover;
+  background-color: transparent; 
+  z-index: 1000;
+  transition: 0.5s ease;
+}
+
+.settings-device-selection{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+}
+
+.sign-out-container {
+  position: absolute;
+  bottom: 10px; 
+  width: 100%; 
+  display: flex;
+  justify-content: center; 
 }
 
 #sign-out {
@@ -255,29 +284,6 @@ body {
   cursor: pointer;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content button {
-  color: black;
-  padding: 20px 20px;
-  display: block;
-  width: 100%;
-  text-align: left;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-.dropdown-content button:hover {
-  background-color: #ddd;
-}
-
 
 .device-selection {
   text-align: center;
@@ -286,30 +292,22 @@ body {
   flex-direction: column;
 }
 
-
-#available-devices {
-  text-align: center;
-  display: flex;
-  align-items: center;
-  margin-top: 15px;
-}
-
 .device-selection button{
   border: none;
   border-radius: 5px;
   margin-top: 10px;
   padding: 15px;
   cursor: pointer;
-  transition: 0.2s ease;
   text-align: left;
   flex-direction: column;
 }
 
-#prompt-text {
+.prompt-text {
   margin-right: 10px;
   text-align: left;
   margin-top: 20px;
 }
+
 #device-list {
   display: flex;
   flex-direction: column;
@@ -318,7 +316,6 @@ body {
 
 #device-list button {
   color: black;
-  transition: 0.2s ease;
 }
 
 #start-playing {
@@ -327,20 +324,13 @@ body {
 
 }
 
-#refresh-devices {
+.refresh-devices {
   background-color: #00c3f4;
   color: white;
   padding: 10px 10px;
   margin-left: 30px;
 }
 
-.device-selection button:hover {
-  transform: scale(1.2);
-}
-
-.device-selection button:active {
-  transform: scale(0.8);
-}
 
 
 

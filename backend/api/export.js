@@ -1,4 +1,3 @@
-// api/export.js
 import admin from 'firebase-admin';
 import { config } from 'dotenv';
 

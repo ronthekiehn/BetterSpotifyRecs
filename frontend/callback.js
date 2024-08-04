@@ -55,8 +55,6 @@ async function handleCallback() {
     const data = await requestToken(code);
     document.cookie = `signedIn=true; path=/`;
     console.log("Signed in");
-    localStorage.setItem('spotify_access_token', data.access_token);
-    localStorage.setItem('spotify_refresh_token', data.refresh_token);
     
     if (data.access_token && data.refresh_token) {
         document.cookie = `signedIn=true; path=/`;
