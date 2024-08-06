@@ -227,14 +227,14 @@ async function getRecs() {
 
 
 async function checkFileExists(purpose) {
-    const url = `${apiUrl}/api/exists?purpose=${purpose}`;
+    const url = `${apiUrl}/api/file?type=exists&file=${purpose}`;
     const response = await fetch(url);
     const result = await response.json();
     return result.exists;
   }
 
 async function readFileData(purpose) {
-    const url = `${apiUrl}/api/read?purpose=${purpose}`;
+    const url = `${apiUrl}/api/file?type=read&file=${purpose}`;
     const response = await fetch(url);
     if (response.ok) {
       const data = await response.json();
@@ -247,7 +247,7 @@ async function readFileData(purpose) {
   }
 
 async function sendDataToServer(data, purpose) {
-    const url = `${apiUrl}/api/export?purpose=${purpose}`;
+    const url = `${apiUrl}/api/file?type=export&file=${purpose}`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
