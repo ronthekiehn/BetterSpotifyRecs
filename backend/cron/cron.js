@@ -158,8 +158,9 @@ async function previousTrack() {
     await playTrack(recList[index]);
 }
 
-function switchDevice(newplayerID) {
+async function switchDevice(newplayerID) {
     playerID = newplayerID;
+    await nextTrack();
 }
 
 async function startPlaying(startPlayerID) {
@@ -200,7 +201,7 @@ async function playTrack(song) {
     console.log("getting song length");
     //start the length checking
     songLength = (await fetchWebApi(`v1/tracks/${songID}`, 'GET', token)).duration_ms;
-    checkSongEnd(songLength);
+    checkSongEnd(songLength - 1500);
 }
 
 function shuffle(array) {
@@ -246,16 +247,17 @@ async function getRecs() {
 
 
 async function checkSongEnd(time) {
+    console.log(time);
     await sleep(time);
     console.log("checking now");
    
     let current = (await fetchWebApi(`v1/me/player?device_id=${playerID}`, 'GET')).progress_ms;
     console.log(current, songLength, time);
-    if (current >= songLength -1000) { //if the song is over
+    if (current >= songLength -1500) { //if the song is over
         console.log("song ended");
         await nextTrack();
     } else {
-        checkSongEnd(songLength - current - 1000);
+        checkSongEnd(songLength - current - 1500);
     }
 }
 

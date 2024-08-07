@@ -245,7 +245,7 @@ document.getElementById("next").onclick = async function() {
 }
 
 document.getElementById("like").onclick = async function() {
-    if (this.dataset.liked === 'true') {
+    if (song.liked === 'true') {
         await unlikeTrack();
         this.style.backgroundImage = `url(${dislike})`;
     } else {
