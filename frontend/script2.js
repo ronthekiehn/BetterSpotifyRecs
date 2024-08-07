@@ -176,15 +176,6 @@ async function resumeTrack() {
 }
 
 async function likeTrack() {
-    await fetchBackend('likeTrack', token, playerID);
-}
-
-async function unlikeTrack() {
-    await fetchBackend('unlikeTrack');
-}
-
-
-async function likeTrack() {
     let songID = song.id;
     await fetchWebApi(`v1/me/tracks?ids=${songID}`, 'PUT');
 }
