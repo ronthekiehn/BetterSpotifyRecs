@@ -245,11 +245,13 @@ document.getElementById("next").onclick = async function() {
 }
 
 document.getElementById("like").onclick = async function() {
-    if (song.liked === 'true') {
+    if (song.liked === true) {
         await unlikeTrack();
+        song.liked = false;
         this.style.backgroundImage = `url(${dislike})`;
     } else {
         await likeTrack();
+        song.liked = true;
         this.style.backgroundImage = `url(${like})`;
     }
 };
