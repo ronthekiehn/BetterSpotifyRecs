@@ -14,4 +14,4 @@ async function fetchWebApi(endpoint, method, token, body=null) {
   }
 
 
-module.exportsfetchWebApi;
+module.exports = { fetchWebApi };

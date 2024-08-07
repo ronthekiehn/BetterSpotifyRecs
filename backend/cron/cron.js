@@ -271,4 +271,4 @@ async function checkSongEnd(time) {
 }
 
 
-module.exports = (init, startPlaying, switchDevice, nextTrack, previousTrack, likeTrack, unlikeTrack, checkStatus, startPlaying);
+module.exports = { init, startPlaying, switchDevice, nextTrack, previousTrack, likeTrack, unlikeTrack, checkStatus, startPlaying };
