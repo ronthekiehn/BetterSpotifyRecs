@@ -176,7 +176,7 @@ async function startPlaying(){
     console.log("starting");
     await getRecs();
     await playTrack(recList[index]);
-    await playApi(`v1/me/player/repeat?state=off&device_id=${playerID}`, 'PUT');
+    await fetchWebApi(`v1/me/player/repeat?state=off&device_id=${playerID}`, 'PUT');
 }
 
  async function checkStatus() {
