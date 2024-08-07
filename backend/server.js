@@ -2,11 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-app.use(cors({
-  origin: 'https://better-spotify-recs.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+// app.use(cors({
+//   origin: 'https://better-spotify-recs.vercel.app',
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   allowedHeaders: ['Content-Type', 'Authorization']
+// }));
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "https://better-spotify-recs.vercel.app");
