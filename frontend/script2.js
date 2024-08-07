@@ -135,7 +135,10 @@ async function getCurrent(){
     let response = await fetch(`${apiUrl}/api/get/status`);
     const data = await response.json();
     console.log(data);
-    showTrack(data.currentSong);
+    if (data.currentSong != song)){
+        song = data.currentSong;
+        showTrack(song);
+    }
 }
 
 function showTrack(song) {
@@ -153,11 +156,13 @@ function showTrack(song) {
 
 async function nextTrack() {
     await fetchBackend('nextTrack');
+    getCurrent()
 }
 
 
 async function previousTrack() {
     await fetchBackend('previousTrack');
+    getCurrent()
 }
 
 
@@ -168,7 +173,7 @@ async function pauseTrack() {
 
 async function resumeTrack() {
     console.log("resume");
-    await fetchBackend('resumeTrack');
+    await fetchBackend('resumeTrack', token, playerID);
 }
 
 async function likeTrack() {
@@ -322,6 +327,7 @@ let playing = true;
 let playerID = undefined;
 let devices = undefined;
 let started = false;
+let song = undefined;
 
 async function startPlaying() {
     console.log(await fetchBackend('start', token, playerID));
@@ -334,7 +340,7 @@ async function startPlaying() {
     document.querySelector('.song-details').classList.add('fade-in-album');
     document.querySelector('.controls').classList.add('fade-in-controls');
     
-    setInterval(getCurrent, 1000);
+    setInterval(getCurrent, 2000);
     started = true;
   }
   
