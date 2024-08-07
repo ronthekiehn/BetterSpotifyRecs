@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { init, startPlaying, switchDevice, nextTrack, previousTrack, likeTrack, unlikeTrack } = require('../cron/cron');
-const { fetchWebApi } = require('../utils/spotify');
 
 router.post('/', async (req, res) => {
     const { action, token, playerID, accountName} = req.query;
@@ -29,18 +28,6 @@ router.post('/', async (req, res) => {
                 break;
             case 'previousTrack':
                 await previousTrack();
-                break;
-            case 'pauseTrack':
-                await fetchWebApi(`v1/me/player/pause?device_id=${playerID}`, 'PUT', token);
-                break;
-            case 'resumeTrack':
-                await fetchWebApi(`v1/me/player/play?device_id=${playerID}`, 'PUT', token);
-                break;
-            case 'likeTrack':
-                await likeTrack();
-                break;
-            case 'unlikeTrack':
-                await unlikeTrack();
                 break;
             default:
                 return res.status(400).json({ error: 'Unknown action' });

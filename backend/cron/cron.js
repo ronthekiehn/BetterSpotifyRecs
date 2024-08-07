@@ -158,16 +158,6 @@ async function previousTrack() {
     await playTrack(recList[index]);
 }
 
-async function likeTrack() {
-    let songID = recList[index].id;
-    await fetchWebApi(`v1/me/tracks?ids=${songID}`, 'PUT');
-}
-
-async function unlikeTrack() {
-    let songID = recList[index].id;
-    await fetchWebApi(`v1/me/tracks?ids=${songID}`, 'DELETE');
-}
-
 function switchDevice(newplayerID) {
     playerID = newplayerID;
 }

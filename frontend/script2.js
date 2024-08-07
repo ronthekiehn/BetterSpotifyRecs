@@ -167,13 +167,12 @@ async function previousTrack() {
 
 
 async function pauseTrack() {
-    console.log("pause");
-    await fetchBackend('pauseTrack', token, playerID);
+    await fetchWebApi(`v1/me/player/pause?device_id=${playerID}`, 'PUT', token);
 } 
 
 async function resumeTrack() {
     console.log("resume");
-    await fetchBackend('resumeTrack', token, playerID);
+    await fetchWebApi(`v1/me/player/play?device_id=${playerID}`, 'PUT', token);
 }
 
 async function likeTrack() {
@@ -182,6 +181,17 @@ async function likeTrack() {
 
 async function unlikeTrack() {
     await fetchBackend('unlikeTrack');
+}
+
+
+async function likeTrack() {
+    let songID = song.id;
+    await fetchWebApi(`v1/me/tracks?ids=${songID}`, 'PUT');
+}
+
+async function unlikeTrack() {
+    let songID = song.id;
+    await fetchWebApi(`v1/me/tracks?ids=${songID}`, 'DELETE');
 }
 
 async function playButton() {
@@ -331,11 +341,11 @@ let song = undefined;
 
 async function startPlaying() {
     console.log(await fetchBackend('start', token, playerID));
-
     document.getElementById("device-selection").style.display = "none";
     document.getElementById("settings-button").style.display = "block";
     document.querySelector('.player-container').classList.add('ready');
     document.getElementById("loaded-content").style.display = "block";
+    await getCurrent();
     document.querySelector('.album-cover').classList.add('fade-in-album');
     document.querySelector('.song-details').classList.add('fade-in-album');
     document.querySelector('.controls').classList.add('fade-in-controls');
