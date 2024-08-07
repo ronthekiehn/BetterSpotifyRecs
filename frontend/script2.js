@@ -343,7 +343,7 @@ let devices = undefined;
 let started = false;
 
 async function startPlaying() {
-    await fetchBackend('start', token, playerID);
+    console.log(await fetchBackend('start', token, playerID));
 
     document.getElementById("device-selection").style.display = "none";
     document.getElementById("settings-button").style.display = "block";
