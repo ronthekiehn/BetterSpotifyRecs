@@ -1,9 +1,9 @@
 const express = require('express');
-const cors = require('cors');
+import cors from "cors"
 const app = express();
 
 
-app.use(cors({ origin: "https://better-spotify-recs.vercel.app", credentials: true }))
+app.use(cors())
 
 app.use(express.json());
 
