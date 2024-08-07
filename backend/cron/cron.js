@@ -257,7 +257,7 @@ async function checkSongEnd(time) {
     await sleep(time);
     console.log("checking now");
    
-    let current = (await fetchWebApi(`v1/me/player?device_id=${playerID}`, 'GET')).progress_ms;
+    let current = (await fetchWebApi(`v1/me/player?device_id=${playerID}`, 'GET', token)).progress_ms;
     console.log(current, songLength, time);
     if (current >= songLength -1500) { //if the song is over
         console.log("song ended");
