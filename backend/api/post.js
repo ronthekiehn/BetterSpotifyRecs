@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { init, startPlaying, switchDevice, nextTrack, previousTrack, likeTrack, unlikeTrack,fetchWebApi } = require('../cron/cron');
-const {fetchWebApi} = require('../utils/spotify');
+const { init, startPlaying, switchDevice, nextTrack, previousTrack, likeTrack, unlikeTrack } = require('../cron/cron');
+const { fetchWebApi } = require('../utils/spotify');
 
 router.post('/', async (req, res) => {
     const { action, token, playerID, accountName} = req.query;
