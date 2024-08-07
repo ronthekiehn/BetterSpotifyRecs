@@ -1,18 +1,19 @@
 const express = require('express');
 const cors = require('cors');
-const postRoutes = require('./api/post');
-const getRoutes = require('./api/get');
-
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://better-spotify-recs.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
-app.use('/api/post', postRoutes);
-app.use('/api/get', getRoutes);
+app.use('/api/post', require('./api/post')); 
+app.use('/api/get', require('./api/get'));   
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log(`Server is running on port ${process.env.PORT || 3000}`);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
-
-module.exports = app;
