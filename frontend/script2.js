@@ -60,7 +60,7 @@ async function fetchWebApi(endpoint, method, body) {
       
       body:JSON.stringify(body)
     });
-    if (method = 'GET') {
+    if (method === 'GET') {
         return await res.json();
     }
   }
