@@ -195,7 +195,7 @@ async function playTrack(song) {
     console.log("playing track", song);
     //play the song
     let songID = song.id;
-    await fetchWebApi(`v1/me/player/play?device_id=${playerID}`, 'PUT', token, JSON.stringify({ uris: [`spotify:track:${songID}`] }));
+    await fetchWebApi(`v1/me/player/play?device_id=${playerID}`, 'PUT', token, { uris: [`spotify:track:${songID}`] });
     
     console.log("checking if liked");
     //check if it's liked, and add to the datastructure
