@@ -60,7 +60,9 @@ async function fetchWebApi(endpoint, method, body) {
       
       body:JSON.stringify(body)
     });
-    return await res.json();
+    if (method = 'GET') {
+        return await res.json();
+    }
   }
 
 
@@ -135,7 +137,7 @@ async function getCurrent(){
     let response = await fetch(`${apiUrl}/api/get/status`);
     const data = await response.json();
     console.log(data);
-    if (data.currentSong != song){
+    if (data.currentSong.id != song.id){
         song = data.currentSong;
         showTrack(song);
     }
