@@ -4,10 +4,11 @@ const { init, startPlaying, switchDevice, nextTrack, previousTrack, likeTrack, u
 
 router.post('/', async (req, res) => {
     const { action, token, playerID, accountName} = req.query;
-
+    console.log("received", action);
     try {
         switch (action) {
             case 'init':
+                console.log("calling init");
                 await init(token, accountName);
                 break;
             case 'start':

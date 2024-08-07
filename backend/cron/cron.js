@@ -14,6 +14,7 @@ let token = '';
 async function init(startToken, accountName) {
     try {
         token = startToken;
+        console.log(token);
         // Check and fetch blacklist
         const blacklistDoc = await db.collection('exports').doc(`${accountName}-blacklist`).get();
         if (blacklistDoc.exists) {
