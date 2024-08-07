@@ -120,7 +120,7 @@ async function init() {
     await loadPlayer;
     
     document.getElementById("loading-text").innerHTML = "Connecting to Server...";
-    await fetchBackend('init', token, null, accountName);
+    console.log(await fetchBackend('init', token, null, accountName));
    
     document.getElementById("loading").style.display = "none";
     document.getElementById("hello-message").style.display = "none";
