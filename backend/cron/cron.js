@@ -9,9 +9,11 @@ let index = 0;
 let playerID = undefined;
 let songLength = undefined;
 let token = '';
+let accountName = '';
 
 
-async function init(startToken, accountName) {
+async function init(startToken, startAccountName) {
+    accountName = startAccountName;
     token = startToken;
     console.log(token);
     // Check and fetch blacklist
