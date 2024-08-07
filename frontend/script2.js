@@ -80,6 +80,7 @@ async function fetchBackend(action, token=null, playerID=null, accountName=null)
 async function selectDevice(deviceId) {
         console.log("selecting device", deviceId);
         playerID = deviceId;
+        await fetchBackend('switchDevice', token, playerID);
         await showDevices();
 }
 
@@ -150,30 +151,9 @@ function showTrack(song) {
 }
 
 async function nextTrack() {
-    index++;
-    await playTrack(recList[index]);
-    //if low, get more recs
-    if (index > recList.length - 2){
-        await getRecs();
-    }
+    await fetchBackend('nextTrack');
 }
 
-async function playTrack(song) {
-    showTrack(song);
-    console.log("playing", song);
-    let songID = song.id;
-    await playApi(`v1/me/player/play?device_id=${playerID}`, 'PUT', JSON.stringify({ uris: [`spotify:track:${songID}`] }));
-    document.getElementById("play-pause").style.backgroundImage = `url(${pause})`;
-    playing = true;
-    await checkIfLiked();
-
-    songDict[songID] = song.name;
-    sendDataToServer(songDict, `${accountName}-blacklist`);
-
-    songLength = (await fetchWebApi(`v1/tracks/${songID}`, 'GET')).duration_ms;
-    checkSongEnd(songLength);
-    
-}
 
 async function previousTrack() {
     await fetchBackend('previousTrack');
