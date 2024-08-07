@@ -65,9 +65,7 @@ async function fetchWebApi(endpoint, method, body) {
 
 
 async function fetchBackend(action, token=null, playerID=null, accountName=null) {
-    const res = await fetch(`${apiUrl}/api/post?action=${action}&token=${token}&playerID=${playerID}&accountName=${accountName}`, {
-        method,
-    });
+    const res = await fetch(`${apiUrl}/api/post?action=${action}&token=${token}&playerID=${playerID}&accountName=${accountName}`);
     return await res.json();
 }
 
