@@ -173,6 +173,7 @@ function switchDevice(newplayerID) {
 }
 
 async function startPlaying(){
+    console.log("starting");
     await getRecs();
     await playTrack(recList[index]);
     await playApi(`v1/me/player/repeat?state=off&device_id=${playerID}`, 'PUT');
@@ -189,6 +190,7 @@ async function startPlaying(){
 }
 
 async function playTrack(song) {
+    console.log("playing track", song);
     //play the song
     let songID = song.id;
     await fetchWebApi(`v1/me/player/play?device_id=${playerID}`, 'PUT', token, JSON.stringify({ uris: [`spotify:track:${songID}`] }));
@@ -219,6 +221,7 @@ function sleep(ms) {
 }
 
 async function getRecs() {
+    console.log("getting recs");
     // Get a list of ids to pull from
     let ids = Object.keys(seedSongs);
     shuffle(ids);
