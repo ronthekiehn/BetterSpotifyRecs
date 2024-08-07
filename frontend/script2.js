@@ -137,7 +137,7 @@ async function getCurrent(){
     let response = await fetch(`${apiUrl}/api/get/status`);
     const data = await response.json();
     console.log(data);
-    if (data.currentSong.id != song.id || song === undefined) {
+    if (data.currentSong.id != song?.id){
         song = data.currentSong;
         showTrack(song);
     }
