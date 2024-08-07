@@ -13,7 +13,7 @@ import play from './media/play.png';
 import pause from './media/pause.png';
 
 
-const apiUrl = 'https://spotify-recs-backend.vercel.app';
+const apiUrl = 'https://better-spotify-recs-1931a93e5d96.herokuapp.com/';
 
 var stateKey = 'spotify_auth_state';
 document.cookie = `${stateKey}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
