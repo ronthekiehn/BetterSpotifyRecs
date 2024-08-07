@@ -183,25 +183,29 @@ async function startPlaying(startPlayerID) {
 }
 
 async function playTrack(song) {
-    console.log("playing track", song);
-    //play the song
-    let songID = song.id;
-    await fetchWebApi(`v1/me/player/play?device_id=${playerID}`, 'PUT', token, { uris: [`spotify:track:${songID}`] });
-    
-    console.log("checking if liked");
-    //check if it's liked, and add to the datastructure
-    let liked = await fetchWebApi(`v1/me/tracks/contains?ids=${songID}`, 'GET', token);
-    song.liked = liked;
+    try {
+        console.log("playing track", song);
+        //play the song
+        let songID = song.id;
+        await fetchWebApi(`v1/me/player/play?device_id=${playerID}`, 'PUT', token, { uris: [`spotify:track:${songID}`] });
 
-    console.log("adding to blacklist");
-    //add to the blacklist
-    songDict[songID] = song.name;
-    await db.collection('exports').doc(`${accountName}-blacklist`).set(songDict);
+        console.log("checking if liked");
+        //check if it's liked, and add to the datastructure
+        let liked = await fetchWebApi(`v1/me/tracks/contains?ids=${songID}`, 'GET', token);
+        song.liked = liked[0];
 
-    console.log("getting song length");
-    //start the length checking
-    songLength = (await fetchWebApi(`v1/tracks/${songID}`, 'GET', token)).duration_ms;
-    checkSongEnd(songLength - 1500);
+        console.log("adding to blacklist");
+        //add to the blacklist
+        songDict[songID] = song.name;
+        await db.collection('exports').doc(`${accountName}-blacklist`).set(songDict);
+
+        console.log("getting song length");
+        //start the songend checking
+        songLength = (await fetchWebApi(`v1/tracks/${songID}`, 'GET', token)).duration_ms;
+        checkSongEnd(songLength - 1500);
+    } catch (error) {
+        console.error("Error in playTrack:", error);
+    }
 }
 
 function shuffle(array) {

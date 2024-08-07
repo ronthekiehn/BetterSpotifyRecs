@@ -1,8 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { init, startPlaying, switchDevice, nextTrack, previousTrack, likeTrack, unlikeTrack } = require('../cron/cron');
+const { init, startPlaying, switchDevice, nextTrack, previousTrack } = require('../cron/cron');
 
 router.post('/', async (req, res) => {
+    if (req.method === 'OPTIONS') {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        res.status(204).end(); // No content
+        return;
+      }
     const { action, token, playerID, accountName} = req.query;
     console.log("received", action, token, playerID, accountName);
     try {
