@@ -31,10 +31,10 @@ router.post('/', async (req, res) => {
                 await previousTrack();
                 break;
             case 'pauseTrack':
-                await fetchWebApi(`https://api.spotify.com/v1/me/player/pause?device_id=${playerID}`, 'PUT', token);
+                await fetchWebApi(`v1/me/player/pause?device_id=${playerID}`, 'PUT', token);
                 break;
             case 'resumeTrack':
-                await fetchWebApi(`https://api.spotify.com/v1/me/player/play?device_id=${playerID}`, 'PUT', token);
+                await fetchWebApi(`v1/me/player/play?device_id=${playerID}`, 'PUT', token);
                 break;
             case 'likeTrack':
                 await likeTrack();
