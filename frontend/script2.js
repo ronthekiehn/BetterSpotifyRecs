@@ -135,7 +135,7 @@ async function getCurrent(){
     let response = await fetch(`${apiUrl}/api/get/status`);
     const data = await response.json();
     console.log(data);
-    showTrack(data);
+    showTrack(data.currentSong);
 }
 
 function showTrack(song) {
