@@ -8,8 +8,15 @@ router.post('/', async (req, res) => {
     try {
         switch (action) {
             case 'init':
-                console.log("calling init");
-                await init(token, accountName);
+                try{
+                    await init(token, accountName);
+                    console.log("calling init");
+                    res.status(200).json({ message: "Initialization successful" });
+            
+                } catch (error) {
+                    console.error('Initialization error:', error);
+                    res.status(500).json({ error: error.message });
+                }
                 break;
             case 'start':
                 await startPlaying(playerID);

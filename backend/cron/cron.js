@@ -12,36 +12,28 @@ let token = '';
 
 
 async function init(startToken, accountName) {
-    try {
-        token = startToken;
-        console.log(token);
-        // Check and fetch blacklist
-        const blacklistDoc = await db.collection('exports').doc(`${accountName}-blacklist`).get();
-        if (blacklistDoc.exists) {
-            songDict = blacklistDoc.data();
-            await getRecent();
-        } else {
-            // If blacklist doesn't exist, fetch data
-            await getTopPlayed();
-            await getLib();
-            await db.collection('exports').doc(`${accountName}-blacklist`).set(songDict);
-        }
+    token = startToken;
+    console.log(token);
+    // Check and fetch blacklist
+    const blacklistDoc = await db.collection('exports').doc(`${accountName}-blacklist`).get();
+    if (blacklistDoc.exists) {
+        songDict = blacklistDoc.data();
+        await getRecent();
+    } else {
+        // If blacklist doesn't exist, fetch data
+        await getTopPlayed();
+        await getLib();
+        await db.collection('exports').doc(`${accountName}-blacklist`).set(songDict);
+    }
 
-        // Check and fetch seedlist
-        const seedlistDoc = await db.collection('exports').doc(`${accountName}-seedlist`).get();
-        if (seedlistDoc.exists) {
-            seedSongs = seedlistDoc.data();
-        } else {
-            // If seedlist doesn't exist, fetch data
-            await getTopPlayed();
-            await db.collection('exports').doc(`${accountName}-seedlist`).set(seedSongs);
-        }
-
-        res.status(200).json({ message: "Initialization successful" });
-        
-    } catch (error) {
-        console.error('Initialization error:', error);
-        res.status(500).json({ error: error.message });
+    // Check and fetch seedlist
+    const seedlistDoc = await db.collection('exports').doc(`${accountName}-seedlist`).get();
+    if (seedlistDoc.exists) {
+        seedSongs = seedlistDoc.data();
+    } else {
+        // If seedlist doesn't exist, fetch data
+        await getTopPlayed();
+        await db.collection('exports').doc(`${accountName}-seedlist`).set(seedSongs);
     }
 };
 
