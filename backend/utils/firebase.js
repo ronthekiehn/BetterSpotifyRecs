@@ -1,7 +1,5 @@
-import admin from 'firebase-admin';
-import { config } from 'dotenv';
-
-config();
+const admin = require('firebase-admin');
+require('dotenv').config();
 
 if (!admin.apps.length) {
   const serviceAccount = JSON.parse(Buffer.from(process.env.FIREBASE_KEY, 'base64').toString('utf8'));

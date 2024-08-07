@@ -1,5 +1,5 @@
 const db = require('../utils/firebase');
-import { fetchWebApi } from '../utils/spotify';
+const {fetchWebApi} = require('../utils/spotify');
 
 
 let songDict = {};
@@ -11,7 +11,7 @@ let songLength = undefined;
 let token = '';
 
 
-export async function init(startToken, accountName) {
+async function init(startToken, accountName) {
     try {
         token = startToken;
         // Check and fetch blacklist
@@ -151,7 +151,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export async function nextTrack() {
+async function nextTrack() {
     index++;
     await playTrack(recList[index]);
     //if low, get more recs
@@ -160,32 +160,32 @@ export async function nextTrack() {
     }
 }
 
-export async function previousTrack() {
+async function previousTrack() {
     index--;
     await playTrack(recList[index]);
 }
 
-export async function likeTrack() {
+async function likeTrack() {
     let songID = recList[index].id;
     await fetchWebApi(`v1/me/tracks?ids=${songID}`, 'PUT');
 }
 
-export async function unlikeTrack() {
+async function unlikeTrack() {
     let songID = recList[index].id;
     await fetchWebApi(`v1/me/tracks?ids=${songID}`, 'DELETE');
 }
 
-export function switchDevice(newplayerID) {
+function switchDevice(newplayerID) {
     playerID = newplayerID;
 }
 
-export async function startPlaying(){
+async function startPlaying(){
     await getRecs();
     await playTrack(recList[index]);
     await playApi(`v1/me/player/repeat?state=off&device_id=${playerID}`, 'PUT');
 }
 
- export async function checkStatus() {
+ async function checkStatus() {
     try {
         const currentSong = recList[index];
         return currentSong;
@@ -270,3 +270,4 @@ async function checkSongEnd(time) {
 }
 
 
+module.exports = (init, startPlaying, switchDevice, nextTrack, previousTrack, likeTrack, unlikeTrack, checkStatus, startPlaying);
