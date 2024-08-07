@@ -10,7 +10,6 @@ router.post('/', async (req, res) => {
             case 'init':
                 try{
                     await init(token, accountName);
-                    console.log("calling init");
                     res.status(200).json({ message: "Initialization successful" });
             
                 } catch (error) {
@@ -20,6 +19,7 @@ router.post('/', async (req, res) => {
                 break;
             case 'start':
                 await startPlaying(playerID);
+                console.log("started");
                 break;
             case 'switchDevice':
                 await switchDevice(playerID);
