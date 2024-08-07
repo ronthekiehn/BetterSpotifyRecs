@@ -132,9 +132,10 @@ async function init() {
 
 
 async function getCurrent(){
-    let current = (await fetch(`${apiUrl}/api/get/status`));
-    console.log(current);
-    showTrack(current);
+    let response = await fetch(`${apiUrl}/api/get/status`);
+    const data = await response.json();
+    console.log(data);
+    showTrack(data);
 }
 
 function showTrack(song) {
@@ -162,7 +163,7 @@ async function previousTrack() {
 
 async function pauseTrack() {
     console.log("pause");
-    await fetchBackend('pauseTrack');
+    await fetchBackend('pauseTrack', token, playerID);
 } 
 
 async function resumeTrack() {
@@ -171,7 +172,7 @@ async function resumeTrack() {
 }
 
 async function likeTrack() {
-    await fetchBackend('likeTrack');
+    await fetchBackend('likeTrack', token, playerID);
 }
 
 async function unlikeTrack() {
