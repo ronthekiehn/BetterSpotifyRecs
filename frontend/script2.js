@@ -169,12 +169,12 @@ async function previousTrack() {
 
 
 async function pauseTrack() {
-    await fetchWebApi(`v1/me/player/pause?device_id=${playerID}`, 'PUT', token);
+    await fetchWebApi(`v1/me/player/pause?device_id=${playerID}`, 'PUT');
 } 
 
 async function resumeTrack() {
     console.log("resume");
-    await fetchWebApi(`v1/me/player/play?device_id=${playerID}`, 'PUT', token);
+    await fetchWebApi(`v1/me/player/play?device_id=${playerID}`, 'PUT');
 }
 
 async function likeTrack() {
