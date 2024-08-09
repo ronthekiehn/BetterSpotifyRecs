@@ -26,20 +26,22 @@ function deleteUserSession(accountName) {
   delete userSessions[accountName];
 }
 
-async function init(startToken, startAccountName) {
-    if (userSessions[userId]) {
+async function init(token, accountName) {
+    if (userSessions[accountName]) {
+        const session = getUserSession(accountName);
+        session.token = token;
         console.log("Reusing existing session for user:", userId);
         return; // Skip full init if session exists
     }
-  createUserSession(startAccountName);
+  createUserSession(accountName);
 
-  const session = getUserSession(startAccountName);
-  session.token = startToken;
+  const session = getUserSession(accountName);
+  session.token = token;
 
   console.log(session.token);
 
   // Check and fetch blacklist
-  const blacklistDoc = await db.collection('exports').doc(`${startAccountName}-blacklist`).get();
+  const blacklistDoc = await db.collection('exports').doc(`${accountName}-blacklist`).get();
   if (blacklistDoc.exists) {
     session.songDict = blacklistDoc.data();
     await getRecent(session);
@@ -47,17 +49,17 @@ async function init(startToken, startAccountName) {
     // If blacklist doesn't exist, fetch data
     await getTopPlayed(session);
     await getLib(session);
-    await db.collection('exports').doc(`${startAccountName}-blacklist`).set(session.songDict);
+    await db.collection('exports').doc(`${accountName}-blacklist`).set(session.songDict);
   }
 
   // Check and fetch seedlist
-  const seedlistDoc = await db.collection('exports').doc(`${startAccountName}-seedlist`).get();
+  const seedlistDoc = await db.collection('exports').doc(`${accountName}-seedlist`).get();
   if (seedlistDoc.exists) {
     session.seedSongs = seedlistDoc.data();
   } else {
     // If seedlist doesn't exist, fetch data
     await getTopPlayed(session);
-    await db.collection('exports').doc(`${startAccountName}-seedlist`).set(session.seedSongs);
+    await db.collection('exports').doc(`${accountName}-seedlist`).set(session.seedSongs);
   }
 }
 
