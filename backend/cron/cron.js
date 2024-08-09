@@ -251,6 +251,11 @@ async function checkSongEnd(time, session) {
     console.log("Checking now");
 
     const playerStatus = await fetchWebApi('v1/me/player', 'GET', session.token);
+
+    if (response.status === 204) {
+        console.log("No active player found. Stopping further checks.");
+        return;
+    }
     
     // Get current track ID and device ID
     const currentTrackId = playerStatus?.item?.id;

@@ -159,7 +159,6 @@ async function init() {
 
 async function getCurrent(){
     let response = await fetch(`${apiUrl}/api/get/status?accountName=${accountName}`);
-    console.log(response);
     const data = await response.json();
     if (data.currentSong.id != song?.id){
         console.log("changing", data);

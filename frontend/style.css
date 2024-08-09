@@ -233,6 +233,7 @@ button:active {
   flex-direction: column;
   align-items: center;
   transition: 0.5s ease;
+  z-index: 1000;
 }
 
 .settings-menu button {
