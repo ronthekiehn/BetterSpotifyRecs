@@ -78,6 +78,30 @@ async function fetchBackend(action, token=null, playerID=null, accountName=null)
     return await res.json();
 }
 
+async function initBackend(token, accountName){
+    const res = await fetch(`${apiUrl}/api/post/init?token=${token}&accountName=${accountName}`,
+        {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        }
+    );
+    return await res.json();
+}
+
+async function logoutBackend(accountName){
+    const res = await fetch(`${apiUrl}/api/post/logout?accountName=${accountName}`,
+        {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        }
+    );
+    return await res.json();
+}
+
 
 async function selectDevice(deviceId) {
         console.log("selecting device", deviceId);
@@ -117,13 +141,13 @@ async function init() {
     
 
     accountName = (await fetchWebApi('v1/me', 'GET')).display_name;
-    document.getElementById("hello-message").innerHTML = `Hi ${accountName}, we're loading your data...`;
+    document.getElementById("hello-message").innerHTML = `Hi ${accountName}, getting things ready...`;
 
     document.getElementById("loading-text").innerHTML = "Loading Player...";
     await loadPlayer;
     
     document.getElementById("loading-text").innerHTML = "Connecting to Server...";
-    console.log(await fetchBackend('init', token, null, accountName));
+    console.log(await initBackend(token, accountName));
    
     document.getElementById("loading").style.display = "none";
     document.getElementById("hello-message").style.display = "none";
@@ -324,6 +348,7 @@ function addSpotifyPlayerScript() {
   }
   
 function signOut() {
+
     document.cookie = 'signedIn=false; path=/';
     window.location.href = '/';
 }
