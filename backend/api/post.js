@@ -71,7 +71,7 @@ router.post('./logout', async (req, res) => {
         console.error('Error logging out:', error);
         res.status(500).send('Error logging out');
       }
-}
+});
 
 
 module.exports = router;
