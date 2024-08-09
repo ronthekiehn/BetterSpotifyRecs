@@ -166,8 +166,8 @@ async function switchDevice(newPlayerID, session) {
   }
 }
 
-async function startPlaying(startPlayerID, session) {
-  session.playerID = startPlayerID;
+async function startPlaying(playerID, session) {
+  session.playerID = playerID;
   console.log("starting");
   await getRecs(session);
   await playTrack(session.recList[session.index], session);
