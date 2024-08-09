@@ -13,7 +13,6 @@ router.post('/', async (req, res) => {
     const { action, playerID, accountName } = req.query;
       try{
         const session = getUserSession(accountName);
-        console.log(session);
         switch(action) {
             case 'start': 
                 await startPlaying(playerID, session);

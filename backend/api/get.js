@@ -3,6 +3,7 @@ const router = express.Router();
 const { checkStatus, getUserSession} = require('../cron/cron');
 
 router.get('/status', async (req, res) => {
+    const { accountName } = req.query;
     try {
         const session = getUserSession(accountName);
         const currentSong = await checkStatus(session);
