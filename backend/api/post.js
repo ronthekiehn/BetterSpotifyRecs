@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { init, startPlaying, nextTrack, previousTrack, switchDevice, getUserSession, deleteUserSession } = require('../utils/cron');
+const { init, startPlaying, nextTrack, previousTrack, switchDevice, getUserSession, deleteUserSession } = require('../cron/cron');
 
 router.post('/', async (req, res) => {
     if (req.method === 'OPTIONS') {
@@ -55,7 +55,7 @@ router.post('/init', async (req, res) => {
         }
     });
     
-router.post('./logout', async (req, res) => {
+router.post('/logout', async (req, res) => {
     if (req.method === 'OPTIONS') {
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
