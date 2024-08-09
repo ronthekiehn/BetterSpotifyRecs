@@ -253,6 +253,7 @@ async function checkSongEnd(time, session) {
     const playerStatus = await fetchWebApi('v1/me/player', 'GET', session.token);
 
     if (response.status === 204) {
+        session.started = false;
         console.log("No active player found. Stopping further checks.");
         return;
     }

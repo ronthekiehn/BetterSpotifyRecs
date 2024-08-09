@@ -325,6 +325,15 @@ document.getElementById('settings-button').addEventListener('click', async () =>
     }
 });
 
+document.getElementById("about-button").addEventListener('click', () => {
+    const about = document.getElementById('about');
+    if (about.style.display === 'block') {
+        about.style.display = 'none';
+    } else {
+        about.style.display = 'block';
+    }
+};
+
 document.getElementById("sign-out").onclick = signOut;
 
 document.getElementById("settings-refresh-devices").addEventListener('click', showDevices);

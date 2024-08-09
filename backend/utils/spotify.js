@@ -9,6 +9,9 @@ async function fetchWebApi(endpoint, method, token, body) {
         body:JSON.stringify(body)
       });
     console.log("response", res);
+    if (res.status === 204){
+      return res;
+    }
     if (method === 'GET') {
           return await res.json();
     } 
