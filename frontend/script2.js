@@ -66,7 +66,7 @@ async function fetchWebApi(endpoint, method, body) {
   }
 
 
-async function fetchBackend(action, token=null, playerID=null, accountName=null) {
+async function fetchBackend(action, token=null, playerID=null) {
     const res = await fetch(`${apiUrl}/api/post?action=${action}&token=${token}&playerID=${playerID}&accountName=${accountName}`,
         {
             method: 'POST',
@@ -348,7 +348,7 @@ function addSpotifyPlayerScript() {
   }
   
 function signOut() {
-
+    logoutBackend(accountName);
     document.cookie = 'signedIn=false; path=/';
     window.location.href = '/';
 }
