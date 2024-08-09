@@ -332,7 +332,7 @@ document.getElementById("about-button").addEventListener('click', () => {
     } else {
         about.style.display = 'block';
     }
-};
+});
 
 document.getElementById("sign-out").onclick = signOut;
 
