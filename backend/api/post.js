@@ -10,12 +10,12 @@ router.post('/', async (req, res) => {
         res.status(204).end(); // No content
         return;
       }
+    const { action, playerID, accountName } = req.query;
       try{
         const session = getUserSession(accountName);
+        console.log(session);
         switch(action) {
             case 'start': 
-                console.log("starting");
-                console.log(session);
                 await startPlaying(playerID, session);
                 break;
             case 'switchDevice':
