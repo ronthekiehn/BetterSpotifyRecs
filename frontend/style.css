@@ -332,6 +332,14 @@ button:active {
   margin-left: 30px;
 }
 
-
-
+#about{
+  border: none;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 5px;
+  font-size: 0.9rem;;
+  text-align: left;
+  height: 200px;
+  overflow-y: auto;
+}
 
