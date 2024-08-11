@@ -274,11 +274,11 @@ async function checkSongEnd(time, session) {
     const currentProgress = playerStatus?.progress_ms;
     console.log(currentProgress, session.songLength, time);
 
-    if (currentProgress >= session.songLength - 1500) { // If the song is over
+    if (currentProgress >= session.songLength - 2000) { // If the song is over
         console.log("Song ended");
         await nextTrack(session);
     } else {
-        checkSongEnd(session.songLength - currentProgress - 1500, session);
+        checkSongEnd(session.songLength - currentProgress - 2000, session);
     }
 }
 
