@@ -5,6 +5,7 @@ body {
   align-items: center;
   height: 100vh;
   background-color: #ffffff;
+  color: black;
 }
 
 button {
@@ -126,7 +127,6 @@ button:active {
 
 .album-cover img {
   max-width: 95%;
-  border-radius: 10%;
   border: black 3px solid;
 }
 
@@ -237,6 +237,7 @@ button:active {
 }
 
 .settings-menu button {
+  background-color: rgb(239, 239, 239);
   width: 80%;
   margin: 10px;
   cursor: pointer;
@@ -260,6 +261,7 @@ button:active {
 }
 
 .settings-device-selection{
+  background-color: rgb(239, 239, 239);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -294,6 +296,7 @@ button:active {
 }
 
 .device-selection button{
+  background-color: rgb(239, 239, 239);
   border: none;
   border-radius: 5px;
   margin-top: 10px;
@@ -316,6 +319,7 @@ button:active {
 }
 
 #device-list button {
+  background-color: rgb(239, 239, 239);
   color: black;
 }
 
@@ -333,6 +337,7 @@ button:active {
 }
 
 #about{
+  background-color: rgb(239, 239, 239);
   border: none;
   border-radius: 5px;
   margin: 10px;
