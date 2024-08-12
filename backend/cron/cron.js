@@ -147,9 +147,11 @@ function sleep(ms) {
 
 async function nextTrack(session) {
   session.index++;
+  console.log(session.recList);
   await playTrack(session.recList[session.index], session);
   //if low, get more recs
   if (session.index > session.recList.length - 2) {
+    console.log("getting more recs");
     await getRecs(session);
   }
 }
