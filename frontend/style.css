@@ -75,12 +75,11 @@ button:active {
   align-items: center;
   display:flex;
   transition: 0.5s ease;
-
 }
 
 .player-container.ready {
   max-width: 250px;
-  padding: 25px 23px 60px 23px;
+  padding: 30px 23px 60px 23px;
 }
 
 .song-details {
@@ -88,7 +87,7 @@ button:active {
   flex-direction: column;
   width: 100%;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 @keyframes fadeIn {
@@ -168,7 +167,7 @@ button:active {
   margin: auto;
   background-color: white;
   width: 70%;
-  padding: 7px;
+  padding: 10px;
   display: flex;
   box-shadow: 0 0 6px inset rgba(0, 0, 0, 0.3);
   border-radius: 40px;
