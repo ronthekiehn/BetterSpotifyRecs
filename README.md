@@ -1,6 +1,7 @@
 # Better-Spotify-Recs
 Better Spotify Recommendations. Actually plays songs you haven't heard before
 [better-spotify-recs.vercel.app](https://better-spotify-recs.vercel.app)
+The app is in dev mode, which means Spotify limits the number of users working on getting extended license.
 
 Blacklists all of your liked and top songs, then generates recommendations based on your top songs but doesn't play anything that is on the blacklist. After you listen to a song, it goes on the blacklist so that you won't hear the same things over and over again.
 
