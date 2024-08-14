@@ -5,7 +5,7 @@ The app is in dev mode, which means Spotify limits the number of users working o
 
 Blacklists all of your liked and top songs, then generates recommendations based on your top songs but doesn't play anything that is on the blacklist. After you listen to a song, it goes on the blacklist so that you won't hear the same things over and over again.
 
-Frontend is pure HTML, CSS, and Javascript with a small Vite config. Connects through the Spotify API to get songs, generate recommendations, and play songs through the player SDK and on your own devices. Hosted on Vercel. Backend is node.js and deployed on Vercel, with a Firebase server for storing data. 
+Frontend is pure HTML, CSS, and Javascript with a small Vite config. Connects through the Spotify API to get songs, generate recommendations, and play songs through the player SDK and on your own devices. Hosted on Vercel. Backend is node.js and deployed on Heroku, with a Firebase server for storing data. 
 
 ## Features
 - Full Spotify player that generates new recommendations
