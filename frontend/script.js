@@ -346,14 +346,14 @@ document.getElementById('settings-button').addEventListener('click', async () =>
    if (deviceSet.style.display === 'block') {
        if (isMobile){
            togglePlayer(true)
-           document.getElementById('about-div').style.zIndex = '1000';
-           document.getElementById('settings-div').style.zIndex = '1';
+        //    document.getElementById('about-div').style.zIndex = '1000';
+        //    document.getElementById('settings-div').style.zIndex = '1';
        }
        deviceSet.style.display = 'none';
    } else {
        if (isMobile){
-        document.getElementById('about-div').style.zIndex = '1';
-        document.getElementById('settings-div').style.zIndex = '1000';
+        // document.getElementById('about-div').style.zIndex = '1';
+        // document.getElementById('settings-div').style.zIndex = '1000';
            togglePlayer(false)
        }
        deviceSet.style.display = 'block';
