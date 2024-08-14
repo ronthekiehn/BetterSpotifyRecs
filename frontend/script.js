@@ -416,6 +416,7 @@ async function startPlaying() {
         about.style.alignItems = 'left';
         about.style.textAlign = 'left';
         document.getElementById("about-button").style.marginLeft = "0";
+        document.getElementById("about-button").style.width = "20px";
     }
 
     document.querySelector('.player-container').classList.add('ready');
