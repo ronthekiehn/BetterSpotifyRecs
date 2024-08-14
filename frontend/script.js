@@ -315,22 +315,7 @@ window.addEventListener('keydown', function(event){
 
 
 
-document.getElementById('settings-button').addEventListener('click', async () => {
-     let deviceSet = document.getElementById("settings-devices");
-    if (deviceSet.style.display === 'block') {
-        if (isMobile){
-            togglePlayer(true)
-        }
-        deviceSet.style.display = 'none';
-    } else {
-        if (isMobile){
-            togglePlayer(false)
-        }
-        deviceSet.style.display = 'block';
-        await showDevices();
-        
-    }
-});
+
 
 function togglePlayer(on){
     if (on){
@@ -354,6 +339,23 @@ document.getElementById("about-button").addEventListener('click', () => {
         about.style.display = 'block';
     }
     
+});
+
+document.getElementById('settings-button').addEventListener('click', async () => {
+    let deviceSet = document.getElementById("settings-devices");
+   if (deviceSet.style.display === 'block') {
+       if (isMobile){
+           togglePlayer(true)
+       }
+       deviceSet.style.display = 'none';
+   } else {
+       if (isMobile){
+           togglePlayer(false)
+       }
+       deviceSet.style.display = 'block';
+       await showDevices();
+       
+   }
 });
 
 document.getElementById("sign-out").onclick = signOut;
@@ -400,9 +402,11 @@ async function startPlaying() {
     document.getElementById("about-div").style.display = "flex";
     if (isMobile){
         document.getElementById("settings-div").style.position = "fixed";
-        document.getElementById("settings-div").style.top = "10%";
+        document.getElementById("settings-div").style.top = "5%";
+        document.getElementById("settings-div").style.left = "10px";
         document.getElementById("about-div").style.position = "fixed";
-        document.getElementById("about-div").style.top = "10%";
+        document.getElementById("about-div").style.top = "5%";
+        document.getElementById("settings-div").style.right = "10px";
     }
     document.querySelector('.player-container').classList.add('ready');
     document.getElementById("loaded-content").style.display = "block";
