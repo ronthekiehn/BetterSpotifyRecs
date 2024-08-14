@@ -400,9 +400,9 @@ async function startPlaying() {
     document.getElementById("about-div").style.display = "flex";
     if (isMobile){
         document.getElementById("settings-div").style.position = "fixed";
-        document.getElementById("settings-div").style.top = "10px";
+        document.getElementById("settings-div").style.top = "10%";
         document.getElementById("about-div").style.position = "fixed";
-        document.getElementById("about-div").style.top = "10px";
+        document.getElementById("about-div").style.top = "10%";
     }
     document.querySelector('.player-container').classList.add('ready');
     document.getElementById("loaded-content").style.display = "block";
