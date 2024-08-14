@@ -346,14 +346,10 @@ document.getElementById('settings-button').addEventListener('click', async () =>
    if (deviceSet.style.display === 'block') {
        if (isMobile){
            togglePlayer(true)
-        //    document.getElementById('about-div').style.zIndex = '1000';
-        //    document.getElementById('settings-div').style.zIndex = '1';
        }
        deviceSet.style.display = 'none';
    } else {
        if (isMobile){
-        // document.getElementById('about-div').style.zIndex = '1';
-        // document.getElementById('settings-div').style.zIndex = '1000';
            togglePlayer(false)
        }
        deviceSet.style.display = 'block';
@@ -411,9 +407,13 @@ async function startPlaying() {
     if (isMobile){
         settings.classList.add('mobile');
         about.classList.add('mobile');
+        document.getElementById('about').classList.add('mobile');
+        document.getElementById('settings-devices').classList.add('mobile');
     } else{
         settings.classList.add('desktop');
         about.classList.add('desktop');
+        document.getElementById('about').classList.remove('mobile');
+        document.getElementById('settings-devices').classList.remove('mobile');
     }
 
     document.querySelector('.player-container').classList.add('ready');

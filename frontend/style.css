@@ -320,6 +320,7 @@ button:active {
   top: 10px;
   left: 50px;
   text-align: left;
+  align-items: left;
 }
 
 #settings-div.mobile{
@@ -340,6 +341,7 @@ button:active {
   cursor: pointer;
 }
 
+
 #settings-button {
   width: 20px;
   border: none;
@@ -358,6 +360,13 @@ button:active {
   margin-right: 10px;
 }
 
+#about.mobile {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 #settings-div {
   text-align: center;
 }
@@ -365,6 +374,13 @@ button:active {
 .settings-device-selection{
   align-items: center;
   width: 75%
+}
+
+#settings-devices.mobile{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .settings-device-selection button{
