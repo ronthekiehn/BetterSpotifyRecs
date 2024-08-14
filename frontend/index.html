@@ -9,51 +9,39 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class= "content-wrapper" id="content-wrapper">
-        <span id="server-error" style="display: none;">NOTE: YOU ARE NOT CONNECTED TO THE SERVER. THIS IS LIKELY AN ISSUE ON MY END. You can continue to use this website, but the blacklist will take much longer to load and not update.</span>
-        <div class="landing-page" id="landing-page" style="display:none">
-            <span id="landing-page-text">
-                Welcome to Better Spotify Recs (name pending). 
-                This website will generate recommended songs for you, 
-                while maintaining a blacklist of songs you've already heard. 
-                We will start by blacklisting all of your liked and top songs.
-                To get started, click the button below to log in with Spotify.
-            </span>
-            <button id="login-button">
-                <img id="logo" src="media/spotify-button.png"> Login with Spotify
-            </button>
-        </div>
-        
-        <button id="settings-button" style="display: none"></button>
-        <div class="settings-menu" id="settings-menu">
-            <button id="about-button">About</button>
-            <div id="about" style="display: none">
-                <span id="about-text">This website was made out of a frustration with Spotify's recommendation algorithm. 
-                    While I love the idea of algorithm-generated music, Spotify only seems to play songs I already know. 
+    <div class="landing-page" id="landing-page" style="display:none">
+        <span id="landing-page-text">
+            Welcome to Better Spotify Recs (name pending). 
+            This website will generate recommended songs for you, 
+            while maintaining a blacklist of songs you've already heard. 
+            We will start by blacklisting all of your liked and top songs.
+            To get started, click the button below to log in with Spotify.
+        </span>
+        <button id="login-button">
+            <img id="logo" src="media/spotify-button.png"> Login with Spotify
+        </button>
+    </div>
+
+    <button id="sign-out">sign out</button>
+    <span id="hello-message" style="display: none;"></span>
+    <div class= "content-wrapper" id="content-wrapper" style="display: none;">
+
+        <div id="about-div" style="display: none;">
+            <button id="about-button">about</button>
+            <div id="about" >
+                <span id="about-text">This website was made out of a frustration with Spotify's recommendation algorithm. <br><br>
+                    While I love the idea of algorithm-generated music, Spotify only seems to play songs I already know. <br><br>
                     This website uses Spotify's built-in algorithm to play music, but maintains a 'blacklist' of songs that
                     you've already liked or are in your top songs. Spotify's API doesn't give access to your full listening
                     history, so it may play some songs you've heard before. But, the blacklist will also keep track of
                     songs you've listened to on the website, so it won't play the same thing twice.
-                    <br>
+                    <br><br>
                     Made by Ron Kiehn.
-                    <br>
+                    <br><br>
                     <a href="github.com/ronthekiehn/BetterSpotifyRecs">View the source code on GitHub</a></span>
             </div>
-            <button id="select-device">Change Device</button>
-            <div id="settings-devices" class="settings-device-selection" style="display: none">
-                <div class="available-devices">
-                    <span id="settings-prompt-text">Available devices:</span>
-                    <button id="settings-refresh-devices" class="refresh-devices">Refresh</button>
-                </div>                
-                <div class="device-list" id="settings-device-list"></div>
-            </div>
-            <button id="rec-button">Rec Settings</button>
-            <div class="sign-out-container">
-                <button id="sign-out">Sign Out</button>
-            </div>
         </div>
-        
-        <span id="hello-message"></span>
+
         <div class="player-container" id="container" style="display: none;">
             <div id="device-selection" class="device-selection" style="display: none;">
                 <span id="device-selection-text">Select a device to play music on</span>
@@ -69,11 +57,10 @@
             <div id="loading" class="loading">
                 <span id="loading-text">Loading...</span>
             </div>
-            
-            <div id="loaded-content" class="loaded-content" style="display: none;">
+            <div id="loaded-content" class="loaded-content" >
                 <div class="song-details">
                     <div class="album-cover">
-                        <img id="album-cover-image" src="https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228" alt="Album Cover" />
+                        <img id="album-cover-image" src="media/waiting.png" alt="Album Cover" />
                     </div>
                     <div class="song-details-content">
                         <div class="song-info">
@@ -90,7 +77,22 @@
                 </div>
             </div> 
         </div>
-    </div>
+
+            <div id="settings-div" style="display: none;">
+                <button id="settings-button" ></button>
+                <div id="settings-devices" class="settings-device-selection">
+                        <span id="settings-prompt-text">Change Device</span>
+                        <button id="settings-refresh-devices" class="refresh-devices">Refresh</button>             
+                    <div class="device-list" id="settings-device-list">
+                        <button>iphone</button>
+                        <button>computer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    
     
 </body>
 </html>

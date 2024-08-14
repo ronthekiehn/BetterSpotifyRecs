@@ -6,6 +6,7 @@ body {
   height: 100vh;
   background-color: #ffffff;
   color: black;
+  margin: 0;
 }
 
 button {
@@ -17,26 +18,24 @@ button {
 }
 
 button:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 button:active {
-  transform: scale(0.8);
+  transform: scale(0.9);
 }
 
-.content-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+
 
 #hello-message {
+  position: fixed;
+  top: 0;
+  text-align: center;
   display: block;
-  margin: 20px;
+  margin: 30px;
   width: 100%;
 }
+
 #login-button {
   background-color: #1ed760;
   color: #ffffff;
@@ -66,9 +65,19 @@ button:active {
   margin: 20px
 }
 
+
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  position: relative;
+}
+
 .player-container {
   background-color: #e7e7e7;
-  padding: 25px 25px 25px 25px;
+  padding: 25px 25px;
   border-radius: 30px;
   box-shadow: 0 0px 10px inset rgba(0, 0, 0, 0.3), 0 0px 10px  rgba(0, 0, 0, 0.3);
   text-align: center;
@@ -78,6 +87,7 @@ button:active {
 }
 
 .player-container.ready {
+  min-width: 250px;
   max-width: 250px;
   padding: 30px 23px 60px 23px;
 }
@@ -223,62 +233,15 @@ button:active {
   padding: 10px 20px;
   cursor: pointer;
 }
-.settings-menu {
-  position: fixed;
-  top: 0;
-  right: -200px;
-  width: 200px;
-  height: 100vh;
-  background-color: #e7e7e7;
-  flex-direction: column;
-  align-items: center;
-  transition: 0.5s ease;
-  z-index: 1000;
-}
-
-.settings-menu button {
-  background-color: rgb(239, 239, 239);
-  width: 80%;
-  margin: 10px;
-  cursor: pointer;
-  text-align: center;
-}
 
 
-#settings-button {
-  position: fixed;
-  top: 5px;
-  right: 5px;
-  border: none;
-  border-radius: 5px;
-  padding: 15px;
-  cursor: pointer;
-  background-image: url(media/menu.png);
-  background-size: cover;
-  background-color: transparent; 
-  z-index: 1000;
-  transition: 0.5s ease;
-}
 
-.settings-device-selection{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
-}
-
-.sign-out-container {
-  position: absolute;
-  bottom: 10px; 
-  width: 100%; 
-  display: flex;
-  justify-content: center; 
-}
 
 #sign-out {
-  background-color: #fd6b6b;
+  background: none;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
   color: black;
   border: none;
   border-radius: 5px;
@@ -310,12 +273,6 @@ button:active {
   margin-top: 20px;
 }
 
-#device-list {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-
 #device-list button {
   background-color: rgb(239, 239, 239);
   color: black;
@@ -328,21 +285,63 @@ button:active {
 }
 
 .refresh-devices {
-  background-color: #00c3f4 !important;
-  color: white;
-  padding: 10px 10px;
-  margin-left: 30px;
+  background-color: #9ADDFF !important;
+}
+
+#about-div, #settings-div{
+  width: 250px;
+  height: 450px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+} 
+
+#about-div {
+  align-items: right;
+  text-align: right;
+}
+
+
+#about-button{
+  margin-left: auto;
+  background: none;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+#settings-button {
+  width: 20px;
+  border: none;
+  border-radius: 50%;
+  padding: 15px;
+  background-image: url(media/settings2.png);
+  background-size: cover;
+  background-color: transparent; 
 }
 
 #about{
-  background-color: rgb(239, 239, 239);
+  font-weight: lighter;
+  background: none;
   border: none;
-  border-radius: 5px;
-  margin: 10px;
-  padding: 5px;
-  font-size: 0.9rem;;
-  text-align: left;
-  height: 200px;
+  font-size: 0.8rem;
   overflow-y: auto;
+  margin-right: 10px;
+}
+
+#settings-div {
+  text-align: center;
+}
+
+.settings-device-selection{
+  align-items: center;
+  width: 75%
+}
+
+.settings-device-selection button{
+  width: 90%;
+  margin: 10px
 }
 

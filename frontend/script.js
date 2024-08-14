@@ -304,24 +304,12 @@ window.addEventListener('keydown', function(event){
 
 
 document.getElementById('settings-button').addEventListener('click', async () => {
-    const menu = document.getElementById('settings-menu');
-    const button = document.getElementById('settings-button');
-    if (menu.style.right === '0px') {
-        menu.style.right = '-200px'; 
-        button.style.right = '5px'; 
+     let deviceSet = document.getElementById("settings-devices");
+    if (deviceSet.style.display === 'flex') {
+        deviceSet.style.display = 'none';
     } else {
-        menu.style.right = '0px'; 
-        button.style.right = '205px'; 
-        let deviceSet = document.getElementById("settings-devices");
-
-        document.getElementById("select-device").addEventListener('click', async () => {
-            if (deviceSet.style.display === 'flex') {
-                deviceSet.style.display = 'none';
-            } else {
-                deviceSet.style.display = 'flex';
-                await showDevices();
-            }
-        });
+        deviceSet.style.display = 'flex';
+        await showDevices();
     }
 });
 
@@ -369,9 +357,10 @@ let started = false;
 let song = undefined;
 
 async function startPlaying() {
-    console.log(await fetchBackend('start', token, playerID));
+    await fetchBackend('start', token, playerID);
     document.getElementById("device-selection").style.display = "none";
-    document.getElementById("settings-button").style.display = "block";
+    document.getElementById("settings-div").style.display = "flex";
+    document.getElementById("about-div").style.display = "flex";
     document.querySelector('.player-container').classList.add('ready');
     document.getElementById("loaded-content").style.display = "block";
     await getCurrent();
