@@ -306,7 +306,7 @@ button:active {
 
 
 #about-button{
-  background-color: red;
+  background: none;
   margin-left: auto;
   color: black;
   border: none;
