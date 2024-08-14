@@ -148,8 +148,11 @@ async function init() {
     accountName = (await fetchWebApi('v1/me', 'GET')).display_name;
     document.getElementById("hello-message").innerHTML = `Hi ${accountName}, getting things ready...`;
 
-    document.getElementById("loading-text").innerHTML = "Loading Player...";
-    await loadPlayer;
+    if (!isMobile){
+        document.getElementById("loading-text").innerHTML = "Loading Player...";
+        await loadPlayer;
+    }
+    
     
     document.getElementById("loading-text").innerHTML = "Connecting to Server...";
     console.log(await initBackend(token, accountName));
