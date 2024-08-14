@@ -30,8 +30,9 @@ async function init(token, accountName) {
     if (userSessions[accountName]) {
         const session = getUserSession(accountName);
         session.token = token;
+        session.started = false;
         console.log("Reusing existing session for user:", userId);
-        return; // Skip full init if session exists
+        return; 
     }
   createUserSession(accountName);
 
@@ -61,6 +62,7 @@ async function init(token, accountName) {
     await getTopPlayed(session);
     await db.collection('exports').doc(`${accountName}-seedlist`).set(session.seedSongs);
   }
+  await getRecs(session);
 }
 
 async function getLib(session) {
@@ -171,8 +173,12 @@ async function switchDevice(newPlayerID, session) {
 async function startPlaying(playerID, session) {
   session.playerID = playerID;
   console.log("starting");
-  await getRecs(session);
-  await playTrack(session.recList[session.index], session);
+  if (session.recList.length > 0) {
+    await playTrack(session.recList[session.index], session);
+  }else{
+    await getRecs(session);
+    await playTrack(session.recList[session.index], session);
+  }
   console.log("turning off repeat");
   await fetchWebApi(`v1/me/player/repeat?state=off&device_id=${session.playerID}`, 'PUT', session.token);
   session.started = true;

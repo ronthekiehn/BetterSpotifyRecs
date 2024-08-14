@@ -138,6 +138,7 @@ async function init() {
     document.getElementById('landing-page').style.display = 'none';
     addSpotifyPlayerScript();
     document.getElementById("container").style.display = "flex";
+    document.getElementById("sign-out").style.display = "block";
     
 
     accountName = (await fetchWebApi('v1/me', 'GET')).display_name;
