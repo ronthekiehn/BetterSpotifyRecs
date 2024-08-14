@@ -401,12 +401,18 @@ async function startPlaying() {
     document.getElementById("settings-div").style.display = "flex";
     document.getElementById("about-div").style.display = "flex";
     if (isMobile){
-        document.getElementById("settings-div").style.position = "fixed";
-        document.getElementById("settings-div").style.top = "5%";
-        document.getElementById("settings-div").style.left = "10px";
-        document.getElementById("about-div").style.position = "fixed";
-        document.getElementById("about-div").style.top = "5%";
-        document.getElementById("settings-div").style.right = "10px";
+        settings = document.getElementById("settings-div");
+        about = document.getElementById("about-div");
+
+        settings.style.position = "fixed";
+        settings.style.top = "10px";
+        settings.style.left = "10px";
+
+        about.style.position = "fixed";
+        about.style.top = "10px";
+        about.style.left = "20px";
+        about.style.alignItems = 'left';
+        about.style.textAlign = 'left';
     }
     document.querySelector('.player-container').classList.add('ready');
     document.getElementById("loaded-content").style.display = "block";
