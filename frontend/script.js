@@ -305,10 +305,10 @@ window.addEventListener('keydown', function(event){
 
 document.getElementById('settings-button').addEventListener('click', async () => {
      let deviceSet = document.getElementById("settings-devices");
-    if (deviceSet.style.display === 'flex') {
+    if (deviceSet.style.display === 'block') {
         deviceSet.style.display = 'none';
     } else {
-        deviceSet.style.display = 'flex';
+        deviceSet.style.display = 'block';
         await showDevices();
     }
 });
