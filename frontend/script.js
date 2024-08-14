@@ -357,8 +357,11 @@ let started = false;
 let song = undefined;
 
 async function startPlaying() {
-    await fetchBackend('start', token, playerID);
     document.getElementById("device-selection").style.display = "none";
+    document.getElementById("loading").style.display = "block";
+    document.getElementById("loading-text").innerHTML = "Loading...";
+    await fetchBackend('start', token, playerID);
+    document.getElementById("loading").style.display = "none";
     document.getElementById("settings-div").style.display = "flex";
     document.getElementById("about-div").style.display = "flex";
     document.querySelector('.player-container').classList.add('ready');
