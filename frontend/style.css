@@ -308,7 +308,6 @@ button:active {
 #about-button{
   background-color: red;
   margin-left: auto;
-  background: none;
   color: black;
   border: none;
   border-radius: 5px;

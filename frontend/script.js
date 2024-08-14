@@ -412,7 +412,7 @@ async function startPlaying() {
 
         about.style.position = "fixed";
         about.style.top = "10px";
-        about.style.left = "20px";
+        about.style.left = "15px";
         about.style.alignItems = 'left';
         about.style.textAlign = 'left';
         document.getElementById("about-button").style.marginLeft = "0";
