@@ -398,6 +398,10 @@ async function startPlaying() {
     document.getElementById("loading").style.display = "none";
     document.getElementById("settings-div").style.display = "flex";
     document.getElementById("about-div").style.display = "flex";
+    if (isMobile){
+        document.getElementById("settings-div").style.position = "fixed";
+        document.getElementById("about-div").style.position = "fixed";
+    }
     document.querySelector('.player-container').classList.add('ready');
     document.getElementById("loaded-content").style.display = "block";
     await getCurrent();
@@ -405,6 +409,13 @@ async function startPlaying() {
     document.querySelector('.song-details').classList.add('fade-in-album');
     document.querySelector('.controls').classList.add('fade-in-controls');
     
+    if (isMobile){
+        document.querySelector('.album-cover').classList.remove('fade-in-album');
+        document.querySelector('.song-details').classList.remove('fade-in-album');
+        document.querySelector('.controls').classList.remove('fade-in-controls');
+    }
+   
+
     setInterval(getCurrent, 2000);
     started = true;
   }
