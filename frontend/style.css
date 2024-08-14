@@ -230,7 +230,6 @@ button:active {
   background-size: 90%;
   color: white;
   background-image: url(media/pause.png);
-  
 }
 
 .loading {
@@ -246,12 +245,10 @@ button:active {
 }
 
 
-
-
 #sign-out {
   background: none;
   position: fixed;
-  top: 10px;
+  top: 20px;
   right: 10px;
   color: black;
   border: none;
@@ -317,16 +314,16 @@ button:active {
 
 #about-div.mobile {
   position: fixed;
-  top: 10px;
-  left: 50px;
+  top: 15px;
+  left: 60px;
   text-align: left;
   align-items: left;
 }
 
 #settings-div.mobile{
   position: fixed;
-  top: 10px;
-  left: 10px;
+  top: 15px;
+  left: 15px;
   
 }
 
