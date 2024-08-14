@@ -401,8 +401,8 @@ async function startPlaying() {
     document.getElementById("settings-div").style.display = "flex";
     document.getElementById("about-div").style.display = "flex";
     if (isMobile){
-        settings = document.getElementById("settings-div");
-        about = document.getElementById("about-div");
+        let settings = document.getElementById("settings-div");
+        let about = document.getElementById("about-div");
 
         settings.style.position = "fixed";
         settings.style.top = "10px";
