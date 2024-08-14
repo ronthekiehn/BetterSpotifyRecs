@@ -303,6 +303,7 @@ button:active {
 
 
 #about-button{
+  font-weight: bold;
   margin-left: auto;
   background: none;
   color: black;
@@ -323,7 +324,6 @@ button:active {
 }
 
 #about{
-  font-weight: lighter;
   background: none;
   border: none;
   font-size: 0.8rem;

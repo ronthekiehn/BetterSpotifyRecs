@@ -28,7 +28,7 @@
 
         <div id="about-div" style="display: none;">
             <button id="about-button">about</button>
-            <div id="about" >
+            <div id="about" style="display: none;">
                 <span id="about-text">This website was made out of a frustration with Spotify's recommendation algorithm. <br><br>
                     While I love the idea of algorithm-generated music, Spotify only seems to play songs I already know. <br><br>
                     This website uses Spotify's built-in algorithm to play music, but maintains a 'blacklist' of songs that
@@ -57,7 +57,7 @@
             <div id="loading" class="loading">
                 <span id="loading-text">Loading...</span>
             </div>
-            <div id="loaded-content" class="loaded-content" >
+            <div id="loaded-content" class="loaded-content" style="display: none;">
                 <div class="song-details">
                     <div class="album-cover">
                         <img id="album-cover-image" src="media/waiting.png" alt="Album Cover" />
@@ -79,8 +79,8 @@
         </div>
 
             <div id="settings-div" style="display: none;">
-                <button id="settings-button" ></button>
-                <div id="settings-devices" class="settings-device-selection">
+                <button id="settings-button"></button>
+                <div id="settings-devices" class="settings-device-selection" style="display: none;">
                         <span id="settings-prompt-text">Change Device</span>
                         <button id="settings-refresh-devices" class="refresh-devices">Refresh</button>             
                     <div class="device-list" id="settings-device-list">
