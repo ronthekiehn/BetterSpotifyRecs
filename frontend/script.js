@@ -12,6 +12,7 @@ import dislike from './media/unliked.png';
 import play from './media/play.png';
 import pause from './media/pause.png';
 
+let isMobile;
 
 const apiUrl = 'https://better-spotify-recs-1931a93e5d96.herokuapp.com';
 
@@ -137,7 +138,9 @@ async function showDevices(){
 
 async function init() {
     document.getElementById('landing-page').style.display = 'none';
-    addSpotifyPlayerScript();
+    if (!isMobile){
+        addSpotifyPlayerScript();
+    }
     document.getElementById("container").style.display = "flex";
     document.getElementById("sign-out").style.display = "block";
     
@@ -312,20 +315,42 @@ window.addEventListener('keydown', function(event){
 document.getElementById('settings-button').addEventListener('click', async () => {
      let deviceSet = document.getElementById("settings-devices");
     if (deviceSet.style.display === 'block') {
+        if (isMobile){
+            togglePlayer(true)
+        }
         deviceSet.style.display = 'none';
     } else {
+        if (isMobile){
+            togglePlayer(false)
+        }
         deviceSet.style.display = 'block';
         await showDevices();
+        
     }
 });
+
+function togglePlayer(on){
+    if (on){
+        document.getElementById('container').style.display = 'flex';
+    } else{
+        document.getElementById('container').style.display = 'none';
+    }
+}
 
 document.getElementById("about-button").addEventListener('click', () => {
     const about = document.getElementById('about');
     if (about.style.display === 'block') {
+        if (isMobile){
+            togglePlayer(true)
+        }
         about.style.display = 'none';
     } else {
+        if (isMobile){
+            togglePlayer(false)
+        }
         about.style.display = 'block';
     }
+    
 });
 
 document.getElementById("sign-out").onclick = signOut;
@@ -387,6 +412,10 @@ function getCookie(name) {
     return match ? match[2] : null;
 }
   document.addEventListener('DOMContentLoaded', function() {
+    isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isMobile){
+        document.body.style.overflow = 'hidden';
+    }
     if (token){
         init();
     } else{
