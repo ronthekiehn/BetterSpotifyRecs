@@ -248,8 +248,8 @@ button:active {
 #sign-out {
   background: none;
   position: fixed;
-  top: 20px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   color: black;
   border: none;
   border-radius: 5px;
