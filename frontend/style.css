@@ -9,6 +9,14 @@ body {
   margin: 0;
 }
 
+body.mobile{
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent; 
+  -webkit-user-select: none;
+  user-select: none;
+
+}
+
 button {
   border: none;
   border-radius: 5px;
@@ -292,16 +300,33 @@ button:active {
 }
 
 #about-div, #settings-div{
-  width: 250px;
-  height: 450px;
-  margin: 10px;
   display: flex;
   flex-direction: column;
 } 
 
-#about-div {
+#about-div.desktop, #settings-div.desktop{
+  width: 250px;
+  height: 450px;
+  margin: 10px;
+}
+
+#about-div.desktop {
   align-items: right;
   text-align: right;
+}
+
+#about-div.mobile {
+  position: fixed;
+  top: 10px;
+  left: 50px;
+  text-align: left;
+}
+
+#settings-div.mobile{
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  
 }
 
 

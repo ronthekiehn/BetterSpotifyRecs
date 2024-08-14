@@ -402,26 +402,18 @@ async function startPlaying() {
     document.getElementById("loading-text").innerHTML = "Loading...";
     await fetchBackend('start', token, playerID);
     document.getElementById("loading").style.display = "none";
-    document.getElementById("settings-div").style.display = "flex";
-    document.getElementById("about-div").style.display = "flex";
+    let settings = document.getElementById("settings-div");
+    let about = document.getElementById("about-div");
+    
+    settings.style.display = "flex";
+    about.style.display = "flex";
 
-    //this is extremely jank at some point I should just have css classes for this
     if (isMobile){
-        let settings = document.getElementById("settings-div");
-        let about = document.getElementById("about-div");
-
-        settings.style.position = "fixed";
-        settings.style.top = "10px";
-        settings.style.left = "10px";
-
-        about.style.position = "fixed";
-        about.style.top = "10px";
-        about.style.left = "50px";
-        about.style.alignItems = 'left';
-        about.style.textAlign = 'left';
-        about.style.zIndex = '1000';
-        document.getElementById("about-button").style.marginLeft = "0";
-        document.getElementById("about-button").style.width = "50px";
+        settings.classList.add('mobile');
+        about.classList.add('mobile');
+    } else{
+        settings.classList.add('desktop');
+        about.classList.add('desktop');
     }
 
     document.querySelector('.player-container').classList.add('ready');
@@ -450,7 +442,7 @@ function getCookie(name) {
   document.addEventListener('DOMContentLoaded', function() {
     isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isMobile){
-        document.body.style.overflow = 'hidden';
+        document.body.classList.add('mobile');
     }
     if (token){
         init();
