@@ -107,6 +107,7 @@ async function selectDevice(deviceId) {
         console.log("selecting device", deviceId);
         playerID = deviceId;
         await fetchBackend('switchDevice', token, playerID);
+        document.getElementById("play-pause").style.backgroundImage = `url(${play})`;
         await showDevices();
 }
 
@@ -178,17 +179,21 @@ function showTrack(song) {
     album.src = `${song.cover}`;
     if (song.liked) {
         document.getElementById("like").style.backgroundImage = `url(${like})`;
+    } else{
+        document.getElementById("like").style.backgroundImage = `url(${dislike})`;
     }
 }
 
 async function nextTrack() {
     await fetchBackend('nextTrack');
+    document.getElementById("play-pause").style.backgroundImage = `url(${play})`;
     getCurrent()
 }
 
 
 async function previousTrack() {
     await fetchBackend('previousTrack');
+    document.getElementById("play-pause").style.backgroundImage = `url(${play})`;
     getCurrent()
 }
 

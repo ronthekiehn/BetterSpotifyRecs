@@ -232,7 +232,8 @@ async function getRecs(session) {
     id: track.id,
     name: track.name,
     artist: track.artists[0].name,
-    cover: track.album.images[0].url
+    cover: track.album.images[0].url,
+    liked: false
   }));
 
   // Filter out the blacklist
