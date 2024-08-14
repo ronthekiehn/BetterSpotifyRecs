@@ -30,7 +30,7 @@ button:active {
 
 #hello-message {
   position: fixed;
-  top: 0;
+  top: 10px;
   text-align: center;
   display: block;
   margin: 30px;
