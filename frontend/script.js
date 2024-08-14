@@ -400,6 +400,8 @@ async function startPlaying() {
     document.getElementById("loading").style.display = "none";
     document.getElementById("settings-div").style.display = "flex";
     document.getElementById("about-div").style.display = "flex";
+
+    //this is extremely jank at some point I should just have css classes for this
     if (isMobile){
         let settings = document.getElementById("settings-div");
         let about = document.getElementById("about-div");
@@ -413,7 +415,9 @@ async function startPlaying() {
         about.style.left = "20px";
         about.style.alignItems = 'left';
         about.style.textAlign = 'left';
+        about.style.marginLeft = "0";
     }
+
     document.querySelector('.player-container').classList.add('ready');
     document.getElementById("loaded-content").style.display = "block";
     await getCurrent();
