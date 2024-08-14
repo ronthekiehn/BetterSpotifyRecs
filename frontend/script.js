@@ -412,11 +412,11 @@ async function startPlaying() {
 
         about.style.position = "fixed";
         about.style.top = "10px";
-        about.style.left = "15px";
+        about.style.left = "50px";
         about.style.alignItems = 'left';
         about.style.textAlign = 'left';
         document.getElementById("about-button").style.marginLeft = "0";
-        document.getElementById("about-button").style.width = "20px";
+        document.getElementById("about-button").style.width = "50px";
     }
 
     document.querySelector('.player-container').classList.add('ready');
