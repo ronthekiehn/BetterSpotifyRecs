@@ -6,6 +6,7 @@ const userSessions = {};
 function createUserSession(accountName) {
   if (!userSessions[accountName]) {
     userSessions[accountName] = {
+      accountName: accountName,
       songDict: {},
       seedSongs: {},
       recList: [],
@@ -29,6 +30,7 @@ function deleteUserSession(accountName) {
 async function init(token, accountName) {
     if (userSessions[accountName]) {
         const session = getUserSession(accountName);
+        session.accountName = accountName;
         session.token = token;
         session.started = false;
         console.log("Reusing existing session for user:", userId);
