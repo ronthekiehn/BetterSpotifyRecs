@@ -446,6 +446,7 @@ function login(showDialog) {
 
 async function handleAuthFlow() {
     const urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams)
     token = urlParams.get('access_token');
     refreshToken = urlParams.get('refresh_token');
     console.log("GOT FROM URL", token, refreshToken);
@@ -493,5 +494,6 @@ async function handleAuthFlow() {
     if (isMobile){
         document.body.classList.add('mobile');
     }
+    console.log("staring auth flow");
     handleAuthFlow();
 });
