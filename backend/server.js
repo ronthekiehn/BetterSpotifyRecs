@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const request = require('request');
+var cookieParser = require('cookie-parser');
+
 const redirect_uri = 'https://better-spotify-recs-1931a93e5d96.herokuapp.com/callback';
 require('dotenv').config();
 
@@ -14,7 +16,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   preflightContinue: false,
   allowedHeaders: ['Content-Type', 'Authorization']
-}));
+})).use(cookieParser());
 
 
 //normal routes
@@ -67,6 +69,7 @@ app.get('/callback', (req, res) => {
   const state = req.query.state || null;
   const storedState = req.cookies ? req.cookies[stateKey] : null;
   console.log("callback state", state, "storedState", storedState);
+  console.log('Cookies:', req.cookies);
   if (state === null || state !== storedState) {
     // Handle state mismatch
     const errorParams = new URLSearchParams({ error: 'state_mismatch' });
