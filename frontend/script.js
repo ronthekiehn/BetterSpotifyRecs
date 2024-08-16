@@ -2,9 +2,8 @@ const client_id = __CLIENT_ID__;
 var redirect_uri = `https://better-spotify-recs.vercel.app/callback`; 
 //var redirect_uri = 'http://localhost:5173/callback';
 
-const params = new URLSearchParams(window.location.hash.substring(1));
-let token = params.get('access_token');
-let refreshToken = params.get('refresh_token');
+let token = '';
+let refreshToken = '';
 let accountName = '';
 
 import like from './media/liked.png';
@@ -15,40 +14,6 @@ import pause from './media/pause.png';
 let isMobile;
 
 const apiUrl = 'https://better-spotify-recs-1931a93e5d96.herokuapp.com';
-
-var stateKey = 'spotify_auth_state';
-document.cookie = `${stateKey}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-
-function generateRandomString(length) {
-    let text = '';
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-}
-
-function login(show_dialog) {
-    const state = generateRandomString(16);
-    document.cookie = `${stateKey}=${state}; path=/`;
-    const scope = 'user-top-read user-library-read user-read-recently-played user-modify-playback-state user-library-modify user-read-playback-state streaming user-read-email user-read-private';
-    const url = new URL('https://accounts.spotify.com/authorize');
-    const params = {
-        response_type: 'code',
-        client_id: client_id,
-        scope: scope,
-        redirect_uri: redirect_uri,
-        state: state,
-        show_dialog: show_dialog
-    };
-
-    for (const key in params) {
-        url.searchParams.append(key, params[key]);
-    }
-
-    window.location.href = url.toString();
-};
-
 
 //want to keep this for frontend-centric stuff
 //basically getting the users name and their devices
@@ -382,11 +347,6 @@ function addSpotifyPlayerScript() {
     document.body.appendChild(script);
   }
   
-function signOut() {
-    logoutBackend(accountName);
-    document.cookie = 'signedIn=false; path=/';
-    window.location.href = '/';
-}
 
 let playing = true;
 let playerID = undefined;
@@ -437,29 +397,95 @@ async function startPlaying() {
   }
   
 
-function getCookie(name) {
-    let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    return match ? match[2] : null;
+
+function signOut() {
+    logoutBackend(accountName);
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    window.location.href = '/';
 }
+
+function login(showDialog) {
+    const loginUrl = `${apiUrl}/login?show_dialog=${showDialog}`;
+    window.location.href = loginUrl;
+  }
+
+  function isTokenExpired() {
+    const expirationTime = localStorage.getItem('spotify_token_expiration_time');
+    return Date.now() > expirationTime;
+  }
+
+  function storeTokens(accessToken, refreshToken, expiresIn) {
+    const expirationTime = Date.now() + expiresIn * 1000; // expiresIn is in seconds
+  
+    localStorage.setItem('access_token', accessToken);
+    localStorage.setItem('refresh_token', refreshToken);
+    localStorage.setItem('token_expiration_time', expirationTime);
+  }
+
+  async function refreshAccessToken(refreshToken) {
+    if (!refreshToken) return false; // If there's no refresh token, cannot refresh
+  
+    try {
+      const response = await fetch(`https://your-heroku-app.herokuapp.com/refresh_token?refresh_token=${refreshToken}`);
+      const data = await response.json();
+  
+      if (data.access_token) {
+        // Update local storage with new access token and expiration time
+        storeTokens(data.access_token, refreshToken, 3600); // Assuming the new token is valid for 1 hour (3600 seconds)
+        token - data.access_token;
+        return true;
+      }
+    } catch (error) {
+      console.error('Failed to refresh access token:', error);
+    }
+    return false;
+  }
+
+async function handleAuthFlow() {
+    const urlParams = new URLSearchParams(window.location.search);
+    token = urlParams.get('access_token');
+    refreshToken = urlParams.get('refresh_token');
+
+    // If tokens are found in the URL, store them in local storage and clean up the URL
+    if (token && refreshToken) {
+        storeTokens(token, refreshToken, 3600)
+        // Clean up the URL by redirecting to the root path without query parameters
+        window.history.replaceState({}, document.title, "/");
+        init();
+        return;
+    }
+
+    // If tokens are not in the URL, check local storage
+    token = localStorage.getItem('access_token');
+    refreshToken = localStorage.getItem('refresh_token');
+
+    if (!token || !refreshToken) {
+        // No tokens found, redirect to the login flow
+        document.getElementById('landing-page').style.display = 'flex';
+        document.getElementById('login-button').onclick = () => {
+            login(true);
+        };
+        return;
+    }
+
+    if (isTokenExpired) {
+        refreshAccessToken(refreshToken).then(newToken => {
+          if (newToken) {
+            init(); // Continue with the app flow
+          } else {
+            login(false); // Refresh failed, redirect to login
+          }
+        });
+      } else {
+        init(); // Access token is valid, proceed with app initialization
+      }
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isMobile){
         document.body.classList.add('mobile');
     }
-    if (token){
-        init();
-    } else{
-        const signedIn = getCookie('signedIn');
-        console.log(signedIn);
-        if (signedIn === 'true') {
-            login(false);
-        } else {
-            // If not signed in, show the "Login with Spotify" button
-            document.getElementById('landing-page').style.display = 'flex';
-            document.getElementById('login-button').onclick = () => {
-                login(true);
-            };
-        }
-    }
-    
+    handleAuthFlow();
 });
