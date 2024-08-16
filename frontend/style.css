@@ -167,10 +167,20 @@ button:active {
   font-size: 0.8rem;
 }
 
-#current-song{
+#current-song {
   font-weight: bold;
+  text-decoration: none;
+  color: inherit;
 }
-
+#current-song:hover::after {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-image: url(media/link.png);
+  background-size: cover;
+  margin-left: 3px;
+}
 .like-button {
   width: 18%;
   border-radius: 30%;
