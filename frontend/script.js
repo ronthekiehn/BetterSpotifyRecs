@@ -411,7 +411,9 @@ function login(showDialog) {
   }
 
   function isTokenExpired() {
+    
     const expirationTime = localStorage.getItem('spotify_token_expiration_time');
+    console.log("checking expiry", Date.now(), expirationTime);
     return Date.now() > expirationTime;
   }
 
@@ -446,12 +448,13 @@ async function handleAuthFlow() {
     const urlParams = new URLSearchParams(window.location.search);
     token = urlParams.get('access_token');
     refreshToken = urlParams.get('refresh_token');
-
+    console.log("GOT FROM URL", token, refreshToken);
     // If tokens are found in the URL, store them in local storage and clean up the URL
     if (token && refreshToken) {
         storeTokens(token, refreshToken, 3600)
         // Clean up the URL by redirecting to the root path without query parameters
         window.history.replaceState({}, document.title, "/");
+        console.log("storing and redirecting");
         init();
         return;
     }
@@ -459,8 +462,9 @@ async function handleAuthFlow() {
     // If tokens are not in the URL, check local storage
     token = localStorage.getItem('access_token');
     refreshToken = localStorage.getItem('refresh_token');
-
+    console.log("tokens from storage", token, refreshToken);
     if (!token || !refreshToken) {
+        console.log("no tokens found");
         // No tokens found, redirect to the login flow
         document.getElementById('landing-page').style.display = 'flex';
         document.getElementById('login-button').onclick = () => {
@@ -470,6 +474,7 @@ async function handleAuthFlow() {
     }
 
     if (isTokenExpired) {
+        console.log("token expired");
         refreshAccessToken(refreshToken).then(newToken => {
           if (newToken) {
             init(); // Continue with the app flow
@@ -478,6 +483,7 @@ async function handleAuthFlow() {
           }
         });
       } else {
+        console.log("token good")
         init(); // Access token is valid, proceed with app initialization
       }
   }
