@@ -40,14 +40,22 @@ app.get('/login', (req, res) => {
 
   const show_dialog = req.query.show_dialog || 'false';
   const scope = 'user-read-private user-read-email user-library-read user-read-playback-state user-modify-playback-state';
-  res.redirect('https://accounts.spotify.com/authorize?' +
-    querystring.stringify({
-      response_type: 'code',
-      client_id: client_id,
-      scope: scope,
-      redirect_uri: redirect_uri,
-      show_dialog: show_dialog
-    }));
+  const url = new URL('https://accounts.spotify.com/authorize');
+  const params = {
+    response_type: 'code',
+    client_id: client_id,
+    scope: scope,
+    redirect_uri: redirect_uri,
+    state: state,
+    show_dialog: show_dialog
+  };
+
+  for (const key in params) {
+    url.searchParams.append(key, params[key]);
+  }
+
+  res.redirect(url.toString());
+  
 });
 
 app.get('/callback', (req, res) => {
