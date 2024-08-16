@@ -429,7 +429,7 @@ function login(showDialog) {
     if (!refreshToken) return false; // If there's no refresh token, cannot refresh
   
     try {
-      const response = await fetch(`https://your-heroku-app.herokuapp.com/refresh_token?refresh_token=${refreshToken}`);
+      const response = await fetch(`${apiUrl}/refresh_token?refresh_token=${refreshToken}`);
       const data = await response.json();
   
       if (data.access_token) {
