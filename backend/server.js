@@ -63,18 +63,17 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/callback', (req, res) => {
-  var code = req.query.code || null;
-  var state = req.query.state || null;
-  var storedState = req.cookies ? req.cookies[stateKey] : null;
+  const code = req.query.code || null;
+  const state = req.query.state || null;
+  const storedState = req.cookies ? req.cookies[stateKey] : null;
 
   if (state === null || state !== storedState) {
-    res.redirect('/#' +
-      querystring.stringify({
-        error: 'state_mismatch'
-      }));
+    // Handle state mismatch
+    const errorParams = new URLSearchParams({ error: 'state_mismatch' });
+    res.redirect(`https://better-spotify-recs.vercel.app/#${errorParams.toString()}`);
   } else {
     res.clearCookie(stateKey);
-    var authOptions = {
+    const authOptions = {
       url: 'https://accounts.spotify.com/api/token',
       form: {
         code: code,
@@ -87,24 +86,25 @@ app.get('/callback', (req, res) => {
       },
       json: true
     };
+
+    request.post(authOptions, (error, response, body) => {
+      if (!error && response.statusCode === 200) {
+        const access_token = body.access_token;
+        const refresh_token = body.refresh_token;
+
+        // Redirect to frontend with tokens in URL parameters
+        const tokenParams = new URLSearchParams({
+          access_token: access_token,
+          refresh_token: refresh_token
+        });
+        res.redirect(`https://better-spotify-recs.vercel.app/#${tokenParams.toString()}`);
+      } else {
+        // Handle token error
+        const errorParams = new URLSearchParams({ error: 'invalid_token' });
+        res.redirect(`https://better-spotify-recs.vercel.app/#${errorParams.toString()}`);
+      }
+    });
   }
-
-  request.post(authOptions,  (error, response, body) => {
-    if (!error && response.statusCode === 200) {
-      const access_token = body.access_token;
-      const refresh_token = body.refresh_token;
-
-      // Redirect to frontend with tokens in URL parameters
-      res.redirect(`https://better-spotify-recs.vercel.app/#${querystring.stringify({
-        access_token: access_token,
-        refresh_token: refresh_token
-      })}`);
-    } else {
-      res.redirect(`https://better-spotify-recs.vercel.app/#${querystring.stringify({
-        error: 'invalid_token'
-      })}`);
-    }
-  });
 });
 
 
