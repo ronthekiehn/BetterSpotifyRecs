@@ -5,6 +5,10 @@ const request = require('request');
 const redirect_uri = 'https://better-spotify-recs-1931a93e5d96.herokuapp.com/callback';
 require('dotenv').config();
 
+client_id = process.env.client_id;
+client_secret = process.env.client_secret;
+
+
 app.use(cors({
   origin: 'https://better-spotify-recs.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
