@@ -45,7 +45,7 @@ app.get('/login', (req, res) => {
   res.cookie(stateKey, state);
   console.log("login state", state);
   const show_dialog = req.query.show_dialog || 'false';
-  const scope = 'user-read-private user-read-email user-library-read user-read-playback-state user-modify-playback-state';
+  const scope = 'user-top-read user-library-read user-read-recently-played user-modify-playback-state user-library-modify user-read-playback-state streaming user-read-email user-read-private';
   const url = new URL('https://accounts.spotify.com/authorize');
   const params = {
     response_type: 'code',
