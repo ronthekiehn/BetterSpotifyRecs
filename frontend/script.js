@@ -472,8 +472,8 @@ async function handleAuthFlow() {
         };
         return;
     }
-
-    if (isTokenExpired) {
+    const expired = isTokenExpired();
+    if (expired) {
         console.log("token expired");
         refreshAccessToken(refreshToken).then(newToken => {
           if (newToken) {
