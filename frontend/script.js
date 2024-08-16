@@ -445,7 +445,7 @@ function login(showDialog) {
   }
 
 async function handleAuthFlow() {
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location.hash.substring(1));
     console.log(urlParams)
     token = urlParams.get('access_token');
     refreshToken = urlParams.get('refresh_token');
