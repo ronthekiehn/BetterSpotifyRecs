@@ -41,7 +41,7 @@ app.get('/login', (req, res) => {
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
-
+  console.log("login state", state);
   const show_dialog = req.query.show_dialog || 'false';
   const scope = 'user-read-private user-read-email user-library-read user-read-playback-state user-modify-playback-state';
   const url = new URL('https://accounts.spotify.com/authorize');
@@ -66,7 +66,7 @@ app.get('/callback', (req, res) => {
   const code = req.query.code || null;
   const state = req.query.state || null;
   const storedState = req.cookies ? req.cookies[stateKey] : null;
-
+  console.log("callback state", state, "storedState", storedState);
   if (state === null || state !== storedState) {
     // Handle state mismatch
     const errorParams = new URLSearchParams({ error: 'state_mismatch' });
