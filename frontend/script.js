@@ -70,7 +70,6 @@ async function logoutBackend(accountName){
 
 
 async function selectDevice(deviceId) {
-        console.log("selecting device", deviceId);
         playerID = deviceId;
         await fetchBackend('switchDevice', token, playerID);
         document.getElementById("play-pause").style.backgroundImage = `url(${pause})`;
@@ -78,9 +77,7 @@ async function selectDevice(deviceId) {
 }
 
 async function showDevices(){
-    console.log("showing devices");
     devices = (await fetchWebApi('v1/me/player/devices', 'GET')).devices;
-    console.log(devices);
     let deviceList;
     if (started){
         deviceList = document.getElementById("settings-device-list");
@@ -120,7 +117,7 @@ async function init() {
     
     
     document.getElementById("loading-text").innerHTML = "Connecting to Server...";
-    console.log(await initBackend(token, accountName));
+    await initBackend(token, accountName);
    
     document.getElementById("loading").style.display = "none";
     document.getElementById("hello-message").style.display = "none";
@@ -144,6 +141,7 @@ function showTrack(song) {
     console.log("showing");
     let text = document.getElementById("current-song");
     text.textContent = `${song.name}`;
+    text.href = song.url;
     let singer = document.getElementById("artist-details");
     singer.textContent = `${song.artist}`;
     let album = document.getElementById("album-cover-image");
@@ -412,7 +410,7 @@ function login(showDialog) {
 
   function isTokenExpired() {
     
-    const expirationTime = localStorage.getItem('spotify_token_expiration_time');
+    const expirationTime = localStorage.getItem('token_expiration_time');
     console.log("checking expiry", Date.now(), expirationTime);
     return Date.now() > expirationTime;
   }
@@ -446,10 +444,8 @@ function login(showDialog) {
 
 async function handleAuthFlow() {
     const urlParams = new URLSearchParams(window.location.hash.substring(1));
-    console.log(urlParams)
     token = urlParams.get('access_token');
     refreshToken = urlParams.get('refresh_token');
-    console.log("GOT FROM URL", token, refreshToken);
     // If tokens are found in the URL, store them in local storage and clean up the URL
     if (token && refreshToken) {
         storeTokens(token, refreshToken, 3600)
@@ -463,7 +459,6 @@ async function handleAuthFlow() {
     // If tokens are not in the URL, check local storage
     token = localStorage.getItem('access_token');
     refreshToken = localStorage.getItem('refresh_token');
-    console.log("tokens from storage", token, refreshToken);
     if (!token || !refreshToken) {
         console.log("no tokens found");
         // No tokens found, redirect to the login flow
@@ -484,7 +479,6 @@ async function handleAuthFlow() {
           }
         });
       } else {
-        console.log("token good")
         init(); // Access token is valid, proceed with app initialization
       }
   }
@@ -494,6 +488,5 @@ async function handleAuthFlow() {
     if (isMobile){
         document.body.classList.add('mobile');
     }
-    console.log("staring auth flow");
     handleAuthFlow();
 });
