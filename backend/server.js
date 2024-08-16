@@ -21,12 +21,15 @@ app.use('/api/get', require('./api/get'));
 
 
 //login stuff
-const generateRandomString = (length) => {
-  return crypto
-  .randomBytes(60)
-  .toString('hex')
-  .slice(0, length);
+function generateRandomString(length) {
+  let text = '';
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
 }
+
 
 var stateKey = 'spotify_auth_state';
 
