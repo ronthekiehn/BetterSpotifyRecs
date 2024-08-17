@@ -33,7 +33,7 @@ async function init(token, accountName) {
         session.accountName = accountName;
         session.token = token;
         session.started = false;
-        console.log("Reusing existing session for user:", userId);
+        console.log("Reusing existing session for user:", accountName);
         return; 
     }
   createUserSession(accountName);
