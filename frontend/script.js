@@ -123,6 +123,10 @@ async function init() {
     document.getElementById("hello-message").style.display = "none";
     document.getElementById("device-selection").style.display = "block";
     await showDevices();
+
+    setInterval(() => {
+        refreshAccessToken(refreshToken);
+    }, 10000);
 }
 
 
@@ -433,7 +437,7 @@ function login(showDialog) {
       if (data.access_token) {
         // Update local storage with new access token and expiration time
         storeTokens(data.access_token, refreshToken, 3600); // Assuming the new token is valid for 1 hour (3600 seconds)
-        token - data.access_token;
+        token = data.access_token;
         return true;
       }
     } catch (error) {
