@@ -105,6 +105,7 @@ async function init() {
     }
     document.getElementById("container").style.display = "flex";
     document.getElementById("sign-out").style.display = "block";
+    document.getElementById("made-with").style.display = "flex";
     
 
     accountName = (await fetchWebApi('v1/me', 'GET')).display_name;
@@ -126,7 +127,7 @@ async function init() {
 
     setInterval(() => {
         refreshAccessToken(refreshToken);
-    }, 10000);
+    }, 59 * 60 * 1000);
 }
 
 
@@ -442,6 +443,8 @@ function login(showDialog) {
       }
     } catch (error) {
       console.error('Failed to refresh access token:', error);
+      document.getElementById("hello-message").style.display = 'block';
+      document.getElementById("hello-message").innerHTML = `Something went wrong when trying to refresh your access token. The site may stop working, if it does, please just refresh.`;
     }
     return false;
   }

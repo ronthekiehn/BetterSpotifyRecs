@@ -9,13 +9,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="landing-page" id="landing-page" style="display:none">
+    <div class="landing-page" id="landing-page" style="display: none;">
         <span id="landing-page-text">
-            Welcome to Better Spotify Recs (name pending). 
-            This website will generate recommended songs for you, 
-            while maintaining a blacklist of songs you've already heard. 
-            We will start by blacklisting all of your liked and top songs.
-            To get started, click the button below to log in with Spotify.
+            Welcome to Nootunez!
+            <br>
+            <br>
+            If you're on browser, you can play music right here in this tab. If you're on mobile,
+            Nootunez will act more like a controller for your Spotify app. Just pick your device
+            from the list of available devices.
+            <br>
+            <br>
+            Nootunez plays new music based off of your top songs on Spotify,
+            but it tries to not play songs you've already heard.
+            <br>
+            <br>
+            If it's your first time using Nootunez, it may take a while to load,
+            but don't worry, it will be much faster next time.
+            To get started, click the button below to connect to your Spotify account. 
         </span>
         <button id="login-button">
             <img id="logo" src="media/spotify-button.png"> Login with Spotify
@@ -23,6 +33,12 @@
     </div>
 
     <button id="sign-out" style="display: none;">sign out</button>
+    
+    <div id="made-with" style="display: none;">
+        <span id="made-with-text">All content provided by</span>
+        <img id="logo" src="media/Spotify_Logo_RGB_Green.png">
+    </div>
+    
     <span id="hello-message"></span>
     <div class= "content-wrapper" id="content-wrapper">
 
