@@ -62,6 +62,7 @@ button:active {
 }
 
 #made-with{
+  font-size: 0.8rem;
   display: flex;
   align-items: center;
   flex-direction: col;
@@ -71,7 +72,7 @@ button:active {
 }
 
 #made-with img {
-  height: 25px;
+  height: 20px;
   margin-left: 5px;
 }
 
