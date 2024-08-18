@@ -141,7 +141,9 @@ app.get('/refresh_token', (req, res) => {
       session = getUserSession(accountName);
       console.log(accountName);
       console.log(session);
+      console.log("sent token");
       if (session){
+        console.log("updating token");
         console.log(accountName);
         console.log(access_token);
         newToken(session, access_token);

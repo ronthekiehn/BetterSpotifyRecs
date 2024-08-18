@@ -71,12 +71,12 @@ button:active {
 
 #made-with.desktop{
   bottom: 15px;
-  right: 15px;
+  left: 15px;
 }
 
 #made-with.mobile{
   left: 0;
-  transform: rotate(-90deg);
+  transform: rotate(-90deg) translate(0, -40px);
 }
 
 #made-with img {
