@@ -3,7 +3,7 @@ const cors = require('cors');
 const app = express();
 const request = require('request');
 var cookieParser = require('cookie-parser');
-const { getUserSession, newToken } = require('../cron/cron');
+const { getUserSession, newToken } = require('./cron/cron');
 
 const redirect_uri = 'https://better-spotify-recs-1931a93e5d96.herokuapp.com/callback';
 require('dotenv').config();
