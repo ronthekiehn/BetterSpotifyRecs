@@ -309,6 +309,7 @@ function shuffle(array) {
 }
 
 function newToken(session, token){
+    console.log("new token", token);
     session.token = token;
 }
 

@@ -62,17 +62,19 @@ button:active {
 }
 
 #made-with{
+  position: fixed;
   font-size: 0.8rem;
   display: flex;
   align-items: center;
   flex-direction: col;
-  position: fixed;
+}
+
+#made-with.desktop{
   bottom: 15px;
-  left: 15px;
+  right: 15px;
 }
 
 #made-with.mobile{
-  position: fixed;
   left: 0;
   transform: rotate(-90deg);
 }

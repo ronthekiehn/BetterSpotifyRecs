@@ -104,6 +104,7 @@ async function init() {
         document.getElementById("made-with").classList.add('mobile');
     } else{
         addSpotifyPlayerScript();
+        document.getElementById("made-with").classList.add('desktop');
     }
     document.getElementById("container").style.display = "flex";
     document.getElementById("sign-out").style.display = "block";

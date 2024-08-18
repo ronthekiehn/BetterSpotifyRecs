@@ -139,6 +139,8 @@ app.get('/refresh_token', (req, res) => {
       //then we're going to update the token for the cron jobs
       const accountName = req.query.accountName;
       session = getUserSession(accountName);
+      console.log(accountName);
+      console.log(session);
       if (session){
         console.log(accountName);
         console.log(access_token);
