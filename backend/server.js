@@ -131,7 +131,6 @@ app.get('/refresh_token', (req, res) => {
       if (body.refresh_token) {
         refresh_token = body.refresh_token;
       }
-      console.log(access_token);
       res.send({
         access_token: access_token,
         refresh_token: refresh_token // Send back in case it's also refreshed
@@ -139,13 +138,8 @@ app.get('/refresh_token', (req, res) => {
       //then we're going to update the token for the cron jobs
       const accountName = req.query.accountName;
       session = getUserSession(accountName);
-      console.log(accountName);
-      console.log(session);
-      console.log("sent token");
       if (session){
         console.log("updating token");
-        console.log(accountName);
-        console.log(access_token);
         newToken(session, access_token);
       }
     }

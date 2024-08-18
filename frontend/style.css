@@ -76,7 +76,7 @@ button:active {
 
 #made-with.mobile{
   left: 0;
-  transform: rotate(-90deg) translate(0, -40px);
+  transform: rotate(-90deg) translate(0, -100px);
 }
 
 #made-with img {

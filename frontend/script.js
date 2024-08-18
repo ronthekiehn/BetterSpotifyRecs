@@ -130,7 +130,7 @@ async function init() {
 
     setInterval(() => {
         refreshAccessToken(refreshToken);
-    }, 10000);
+    }, 59 * 60 * 1000);
 }
 
 
