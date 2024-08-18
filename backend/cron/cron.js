@@ -308,6 +308,10 @@ function shuffle(array) {
   return array;
 }
 
+function newToken(session, token){
+    session.token = token;
+}
+
 module.exports = {
   init,
   nextTrack,
@@ -317,4 +321,5 @@ module.exports = {
   checkStatus,
   getUserSession,
   deleteUserSession,
+  newToken,
 };

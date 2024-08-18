@@ -71,6 +71,12 @@ button:active {
   left: 15px;
 }
 
+#made-with.mobile{
+  position: fixed;
+  left: 0;
+  transform: rotate(-90deg);
+}
+
 #made-with img {
   height: 20px;
   margin-left: 5px;

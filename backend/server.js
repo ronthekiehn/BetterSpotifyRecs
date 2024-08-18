@@ -3,6 +3,7 @@ const cors = require('cors');
 const app = express();
 const request = require('request');
 var cookieParser = require('cookie-parser');
+const { getUserSession, newToken } = require('../cron/cron');
 
 const redirect_uri = 'https://better-spotify-recs-1931a93e5d96.herokuapp.com/callback';
 require('dotenv').config();
@@ -131,6 +132,10 @@ app.get('/refresh_token', (req, res) => {
         access_token: access_token,
         refresh_token: refresh_token // Send back in case it's also refreshed
       });
+      //then we're going to update the token for the cron jobs
+      const accountName = req.query.accountName;
+      session = request.getUserSession(accountName);
+      newToken(session, access_token);
     }
   });
 });

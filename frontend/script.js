@@ -100,7 +100,9 @@ async function showDevices(){
 
 async function init() {
     document.getElementById('landing-page').style.display = 'none';
-    if (!isMobile){
+    if (isMobile){
+        document.getElementById("made-with").classList.add('mobile');
+    } else{
         addSpotifyPlayerScript();
     }
     document.getElementById("container").style.display = "flex";
@@ -432,7 +434,7 @@ function login(showDialog) {
     if (!refreshToken) return false; // If there's no refresh token, cannot refresh
   
     try {
-      const response = await fetch(`${apiUrl}/refresh_token?refresh_token=${refreshToken}`);
+      const response = await fetch(`${apiUrl}/refresh_token?refresh_token=${refreshToken}&accountName=${accountName}`);
       const data = await response.json();
   
       if (data.access_token) {
