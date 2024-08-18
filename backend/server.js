@@ -111,7 +111,7 @@ app.get('/callback', (req, res) => {
 
 
 app.get('/refresh_token', (req, res) => {
-  const refresh_token = req.query.refresh_token;
+  let refresh_token = req.query.refresh_token;
   const authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     headers: { 
@@ -128,6 +128,10 @@ app.get('/refresh_token', (req, res) => {
   request.post(authOptions, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       const access_token = body.access_token;
+      if (body.refresh_token) {
+        refresh_token = body.refresh_token;
+      }
+      console.log(access_token);
       res.send({
         access_token: access_token,
         refresh_token: refresh_token // Send back in case it's also refreshed
@@ -135,7 +139,11 @@ app.get('/refresh_token', (req, res) => {
       //then we're going to update the token for the cron jobs
       const accountName = req.query.accountName;
       session = getUserSession(accountName);
-      newToken(session, access_token);
+      if (session){
+        console.log(accountName);
+        console.log(access_token);
+        newToken(session, access_token);
+      }
     }
   });
 });
