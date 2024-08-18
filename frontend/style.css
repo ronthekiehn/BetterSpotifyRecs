@@ -109,6 +109,7 @@ button:active {
 }
 
 .player-container {
+  z-index: 100;
   background-color: #e7e7e7;
   padding: 25px 25px;
   border-radius: 30px;
