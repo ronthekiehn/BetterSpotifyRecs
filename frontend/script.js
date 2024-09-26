@@ -1,6 +1,7 @@
 let token = '';
 let refreshToken = '';
 let accountName = '';
+let country = '';
 
 import like from './media/liked.png';
 import dislike from './media/unliked.png';
