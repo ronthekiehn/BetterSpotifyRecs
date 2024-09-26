@@ -1,7 +1,3 @@
-const client_id = __CLIENT_ID__;
-var redirect_uri = `https://better-spotify-recs.vercel.app/callback`; 
-//var redirect_uri = 'http://localhost:5173/callback';
-
 let token = '';
 let refreshToken = '';
 let accountName = '';
@@ -44,8 +40,8 @@ async function fetchBackend(action, token=null, playerID=null) {
     return await res.json();
 }
 
-async function initBackend(token, accountName){
-    const res = await fetch(`${apiUrl}/api/post/init?token=${token}&accountName=${accountName}`,
+async function initBackend(token, accountName, country){
+    const res = await fetch(`${apiUrl}/api/post/init?token=${token}&accountName=${accountName}&country=${country}`,
         {
             method: 'POST',
             headers: {
@@ -111,7 +107,9 @@ async function init() {
     document.getElementById("made-with").style.display = "flex";
     
 
-    accountName = (await fetchWebApi('v1/me', 'GET')).display_name;
+    const userProfile = await fetchWebApi('v1/me', 'GET');
+    accountName = userProfile.display_name;
+    country = userProfile.country;
     document.getElementById("hello-message").innerHTML = `Hi ${accountName}, getting things ready...`;
 
     if (!isMobile){
@@ -121,7 +119,7 @@ async function init() {
     
     
     document.getElementById("loading-text").innerHTML = "Connecting to Server...";
-    await initBackend(token, accountName);
+    await initBackend(token, accountName, country);
    
     document.getElementById("loading").style.display = "none";
     document.getElementById("hello-message").style.display = "none";
@@ -136,7 +134,7 @@ async function init() {
 
 
 async function getCurrent(){
-    let response = await fetch(`${apiUrl}/api/get/status?accountName=${accountName}`);
+    const response = await fetch(`${apiUrl}/api/get/status?accountName=${accountName}`);
     const data = await response.json();
     if (data.currentSong.id != song?.id){
         console.log("changing", data);
@@ -147,12 +145,12 @@ async function getCurrent(){
 
 function showTrack(song) {
     console.log("showing");
-    let text = document.getElementById("current-song");
+    const text = document.getElementById("current-song");
     text.textContent = `${song.name}`;
     text.href = song.url;
-    let singer = document.getElementById("artist-details");
+    const singer = document.getElementById("artist-details");
     singer.textContent = `${song.artist}`;
-    let album = document.getElementById("album-cover-image");
+    const album = document.getElementById("album-cover-image");
     album.src = `${song.cover}`;
     if (song.liked) {
         document.getElementById("like").style.backgroundImage = `url(${like})`;
@@ -185,12 +183,12 @@ async function resumeTrack() {
 }
 
 async function likeTrack() {
-    let songID = song.id;
+    const songID = song.id;
     await fetchWebApi(`v1/me/tracks?ids=${songID}`, 'PUT');
 }
 
 async function unlikeTrack() {
-    let songID = song.id;
+    const songID = song.id;
     await fetchWebApi(`v1/me/tracks?ids=${songID}`, 'DELETE');
 }
 
@@ -208,9 +206,9 @@ async function playButton() {
   //now let's see if we can figure out the SDK
 window.onSpotifyWebPlaybackSDKReady = () => {
     const player = new Spotify.Player({
-        name: 'Better Spotify Recs',
+        name: 'Nootunez',
         getOAuthToken: cb => { cb(token); },
-        volume: 1
+        volume: 0.5
     });
 
     // Ready
@@ -247,7 +245,7 @@ const loadPlayer = new Promise((resolve) => {
 
 
 
-document.getElementById("next").onclick = async function() {
+document.getElementById("next").onclick = async () => {
     await nextTrack();
 }
 
@@ -268,17 +266,17 @@ document.getElementById("album-cover-image").addEventListener("dblclick", () =>{
     document.getElementById("like").style.backgroundImage = `url(${like})`;
 });
 
-document.getElementById("play-pause").onclick = async function(){
+document.getElementById("play-pause").onclick = async ()=> {
     await playButton();
 }
 
-document.getElementById("previous").onclick = async function() {
+document.getElementById("previous").onclick = async () => {
     await previousTrack();
 };
 
 
 
-window.addEventListener('keydown', function(event){
+window.addEventListener('keydown', (event)=> {
     if(event.key === ' '){
         playButton();
     }
@@ -314,7 +312,7 @@ document.getElementById("about-button").addEventListener('click', () => {
 });
 
 document.getElementById('settings-button').addEventListener('click', async () => {
-    let deviceSet = document.getElementById("settings-devices");
+    const deviceSet = document.getElementById("settings-devices");
    if (deviceSet.style.display === 'block') {
        if (isMobile){
            togglePlayer(true)
@@ -341,9 +339,8 @@ document.getElementById('start-playing').addEventListener('click', async () => {
     if (playerID === undefined) {
         alert('Please select a device first');
         return;
-    } else{
-        await startPlaying();
     }
+    await startPlaying();
 });
 
 function addSpotifyPlayerScript() {
@@ -366,8 +363,8 @@ async function startPlaying() {
     document.getElementById("loading-text").innerHTML = "Loading...";
     await fetchBackend('start', token, playerID);
     document.getElementById("loading").style.display = "none";
-    let settings = document.getElementById("settings-div");
-    let about = document.getElementById("about-div");
+    const settings = document.getElementById("settings-div");
+    const about = document.getElementById("about-div");
     
     settings.style.display = "flex";
     about.style.display = "flex";
@@ -447,7 +444,7 @@ function login(showDialog) {
     } catch (error) {
       console.error('Failed to refresh access token:', error);
       document.getElementById("hello-message").style.display = 'block';
-      document.getElementById("hello-message").innerHTML = `Something went wrong when trying to refresh your access token. The site may stop working, if it does, please just refresh.`;
+      document.getElementById("hello-message").innerHTML = 'Something went wrong when trying to refresh your access token. The site may stop working, if it does, please just refresh.';
     }
     return false;
   }
@@ -493,7 +490,7 @@ async function handleAuthFlow() {
       }
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', () => {
     isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isMobile){
         document.body.classList.add('mobile');

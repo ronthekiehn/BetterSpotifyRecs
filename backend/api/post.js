@@ -45,9 +45,9 @@ router.post('/init', async (req, res) => {
         res.status(204).end(); // No content
         return;
       }
-      const { token, accountName} = req.query;
+      const { token, accountName, country } = req.query;
         try{
-            await init(token, accountName);
+            await init(token, accountName, country);
             res.status(200).json({ message: "Initialization successful" });
     
         } catch (error) {

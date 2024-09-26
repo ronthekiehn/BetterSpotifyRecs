@@ -1,11 +1,10 @@
 {
   "dependencies": {
     "cookie-parser": "^1.4.6",
-    "cookieparser": "^0.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "firebase-admin": "^12.3.0",
+    "express": "^4.21.0",
+    "firebase-admin": "^12.5.0",
     "request": "^2.88.2"
   }
 }

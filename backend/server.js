@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const request = require('request');
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const { getUserSession, newToken } = require('./cron/cron');
 
 const redirect_uri = 'https://better-spotify-recs-1931a93e5d96.herokuapp.com/callback';
@@ -38,11 +38,11 @@ function generateRandomString(length) {
 }
 
 
-var stateKey = 'spotify_auth_state';
+const stateKey = 'spotify_auth_state';
 
 app.get('/login', (req, res) => {
 
-  var state = generateRandomString(16);
+  const state = generateRandomString(16);
   res.cookie(stateKey, state);
   const show_dialog = req.query.show_dialog || 'false';
   const scope = 'user-top-read user-library-read user-read-recently-played user-modify-playback-state user-library-modify user-read-playback-state streaming user-read-email user-read-private';
@@ -84,7 +84,7 @@ app.get('/callback', (req, res) => {
       },
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
-        Authorization: 'Basic ' + (new Buffer.from(client_id + ':' + client_secret).toString('base64'))
+        Authorization: `Basic ${new Buffer.from(`${client_id}:${client_secret}`).toString('base64')}`
       },
       json: true
     };
@@ -116,7 +116,7 @@ app.get('/refresh_token', (req, res) => {
     url: 'https://accounts.spotify.com/api/token',
     headers: { 
       'content-type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic ' + (new Buffer.from(client_id + ':' + client_secret).toString('base64')) 
+      'Authorization': `Basic ${new Buffer.from(`${client_id}:${client_secret}`).toString('base64')}` 
     },
     form: {
       grant_type: 'refresh_token',

@@ -11,6 +11,7 @@ function createUserSession(accountName) {
       seedSongs: {},
       recList: [],
       index: 0,
+      country: '',
       playerID: undefined,
       songLength: undefined,
       token: '',
@@ -27,10 +28,11 @@ function deleteUserSession(accountName) {
   delete userSessions[accountName];
 }
 
-async function init(token, accountName) {
+async function init(token, accountName, country) {
     if (userSessions[accountName]) {
         const session = getUserSession(accountName);
         session.accountName = accountName;
+        session.country = country;
         session.token = token;
         session.started = false;
         console.log("Reusing existing session for user:", accountName);
@@ -40,6 +42,8 @@ async function init(token, accountName) {
 
   const session = getUserSession(accountName);
   session.token = token;
+  session.country = country;
+  
 
   console.log(session.token);
 
@@ -69,16 +73,16 @@ async function init(token, accountName) {
 
 async function getLib(session) {
   //gets the tracks in your liked songs, and blacklists
-  let num = (await fetchWebApi(`v1/me/tracks?limit=1&offset=0`, 'GET', session.token)).total;
+  const num = (await fetchWebApi('v1/me/tracks?limit=1&offset=0', 'GET', session.token)).total;
 
   if (num <= 50) {
-    let allSongs = (await fetchWebApi(`v1/me/tracks?limit=50&offset=0`, 'GET', session.token)).items;
+    const allSongs = (await fetchWebApi('v1/me/tracks?limit=50&offset=0', 'GET', session.token)).items;
     blacklist2(allSongs, session);
   } else {
     for (let offset = 0; offset * 50 < num + 50; offset++) {
-      let offset50 = offset * 50;
+      const offset50 = offset * 50;
 
-      let allSongs = (await fetchWebApi(`v1/me/tracks?limit=50&offset=${offset50}`, 'GET', session.token)).items;
+      const allSongs = (await fetchWebApi(`v1/me/tracks?limit=50&offset=${offset50}`, 'GET', session.token)).items;
 
       blacklist2(allSongs, session);
       await sleep(1000);
@@ -88,41 +92,41 @@ async function getLib(session) {
 
 async function getTopPlayed(session) {
   //gets your top 100 from each time period, and blacklists
-  let topAll = (await fetchWebApi('v1/me/top/tracks?time_range=long_term&limit=50', 'GET', session.token)).items;
+  const topAll = (await fetchWebApi('v1/me/top/tracks?time_range=long_term&limit=50', 'GET', session.token)).items;
 
   blacklist(topAll, session);
   seedlist(topAll, session);
   await sleep(1000);
-  let top6 = (await fetchWebApi('v1/me/top/tracks?time_range=medium_term&limit=50', 'GET', session.token)).items;
+  const top6 = (await fetchWebApi('v1/me/top/tracks?time_range=medium_term&limit=50', 'GET', session.token)).items;
 
   blacklist(top6, session);
   seedlist(top6, session);
   await sleep(1000);
-  let topWeeks = (await fetchWebApi('v1/me/top/tracks?time_range=short_term&limit=50', 'GET', session.token)).items;
+  const topWeeks = (await fetchWebApi('v1/me/top/tracks?time_range=short_term&limit=50', 'GET', session.token)).items;
 
   blacklist(topWeeks, session);
   seedlist(topWeeks, session);
 
   //then get your past 50 played songs and blacklist them
   await sleep(1000);
-  let lastPlayed = (await fetchWebApi('v1/me/player/recently-played?limit=50', 'GET', session.token)).items;
+  const lastPlayed = (await fetchWebApi('v1/me/player/recently-played?limit=50', 'GET', session.token)).items;
 
   blacklist2(lastPlayed, session);
 }
 
 async function getRecent(session) {
   //blacklist their most recent songs
-  let lastPlayed = (await fetchWebApi('v1/me/player/recently-played?limit=50', 'GET', session.token)).items;
+  const lastPlayed = (await fetchWebApi('v1/me/player/recently-played?limit=50', 'GET', session.token)).items;
 
   blacklist2(lastPlayed, session);
   await sleep(1000);
 
   //and their 50 most recently liked
-  let num = (await fetchWebApi(`v1/me/tracks?limit=1&offset=0`, 'GET', session.token)).total;
+  let num = (await fetchWebApi("v1/me/tracks?limit=1&offset=0", 'GET', session.token)).total;
 
   await sleep(1000);
   num = num - 50;
-  let fiftyLiked = (await fetchWebApi(`v1/me/tracks?limit=50&offset=${num}`, 'GET', session.token)).items;
+  const fiftyLiked = (await fetchWebApi(`v1/me/tracks?limit=50&offset=${num}`, 'GET', session.token)).items;
 
   blacklist2(fiftyLiked, session);
 }
@@ -200,12 +204,12 @@ async function playTrack(song, session) {
   try {
     console.log("playing track", song);
     //play the song
-    let songID = song.id;
+    const songID = song.id;
     await fetchWebApi(`v1/me/player/play?device_id=${session.playerID}`, 'PUT', session.token, { uris: [`spotify:track:${songID}`] });
 
     console.log("checking if liked");
     //check if it's liked, and add to the data structure
-    let liked = await fetchWebApi(`v1/me/tracks/contains?ids=${songID}`, 'GET', session.token);
+    const liked = await fetchWebApi(`v1/me/tracks/contains?ids=${songID}`, 'GET', session.token);
     song.liked = liked[0];
 
     console.log("adding to blacklist");
@@ -225,10 +229,10 @@ async function playTrack(song, session) {
 async function getRecs(session) {
   console.log("getting recs");
   // Get a list of ids to pull from
-  let ids = Object.keys(session.seedSongs);
+  const ids = Object.keys(session.seedSongs);
   shuffle(ids);
-  let sample = ids.slice(0, 4);
-  let recs = (await fetchWebApi(`v1/recommendations?limit=4&seed_tracks=${sample.join(',')}`, 'GET', session.token)).tracks;
+  const sample = ids.slice(0, 4);
+  const recs = (await fetchWebApi(`v1/recommendations?limit=4&seed_tracks=${sample.join(',')}`, 'GET', session.token)).tracks;
 
   let tempList = recs.map(track => ({
     id: track.id,
@@ -298,7 +302,7 @@ function shuffle(array) {
   let currentIndex = array.length;
   let randomIndex;
 
-  while (currentIndex != 0) {
+  while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
