@@ -11,7 +11,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        callback: resolve(__dirname, 'callback.html'),
       },
     },
   }
